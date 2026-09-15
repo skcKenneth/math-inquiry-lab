@@ -3,12 +3,14 @@
 程淑鍵（Kenneth Cheng）的極簡中學數學互動探究原型。
 
 **不是只有設計稿：`site/` 已含可操作的三個活動、學生筆記及教師手冊。**
-目前版本 `0.1.0` 尚未在真實課堂試用；沒有建立遠端 repository，沒有部署到 GitHub Pages。
+目前版本 `0.1.0` 尚未在真實課堂試用。2026-09-15 已接手核對並修正數學題目與操作；
+本機已完成真實 Chromium 導航，完整結果見 `docs/TEST_REPORT.md`。
+本機已通過 28 項數學、14 條 HTTP、13 項瀏覽器測試；正在準備獨立 repository 部署。
 
 ## 你只需要先做甚麼
 
-解壓本專案到一個**新資料夾**，在 Codex 開啟該資料夾，把
-`prompts/START_CODEX_ZH.md` 貼給它。不要放入或覆蓋你多年經營的個人網誌 repository。
+本專案已在獨立資料夾接手，原始 ZIP 保持完整，Git 第一個提交保存原始 41 個檔案。
+後續工作依 `prompts/START_CODEX_ZH.md` 進行。不要放入或覆蓋個人網誌 repository。
 
 目標專案名稱：`math-inquiry-lab`。預定網址（不是已上線連結）：
 `https://skckenneth.github.io/math-inquiry-lab/`。
@@ -67,6 +69,21 @@ python tests/browser_smoke.py
 瀏覽器測試只用於開發。GitHub Actions 會自動安裝 Chromium 及所需系統依賴。
 本機已裝 Chromium 時可設定環境變量 `CHROMIUM_EXECUTABLE`；一般不用。
 實際完成及未完成的測試見 `docs/TEST_REPORT.md`，不要把 DOM 模擬測試當成真實部署測試。
+
+### Windows：使用專案內的測試環境
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+$env:PLAYWRIGHT_BROWSERS_PATH = "$PWD\.artifacts\browsers"
+.\.venv\Scripts\python.exe -m playwright install chromium
+$env:BROWSER_ARTIFACT_DIR = "$PWD\.artifacts\browser-qa"
+.\.venv\Scripts\python.exe tests/browser_smoke.py
+```
+
+`.venv/` 與 `.artifacts/` 不會提交或發布；測試筆記全部是合成資料。
+部署後可設定 `BASE_URL` 為 Pages 實際回傳的 project 網址，再執行同一套瀏覽器測試。
+未設定 `BASE_URL` 時，測試會自行啟動本機 HTTP server。
 
 ## 調整內容
 

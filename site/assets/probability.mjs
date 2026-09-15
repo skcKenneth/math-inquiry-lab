@@ -4,7 +4,7 @@ const params=new URL(location.href).searchParams;
 const state={p:Math.round(clampFinite(params.get('p'),.5,0,1)*20)/20,seed:Math.round(clampFinite(params.get('seed'),2026,0,999999)),n:Math.floor(clampFinite(params.get('n'),0,0,20000)),paths:Math.floor(clampFinite(params.get('paths'),1,1,4))};
 let results=[];
 function render(){
-  setPair('p',state.p);$('#seed').value=state.seed;
+  setPair('p',state.p);$('#seed').value=state.seed;$('#seed').removeAttribute('aria-invalid');
   results=Array.from({length:state.paths},(_,i)=>bernoulli(state.p,state.n,(state.seed+Math.imul(i,2654435761))>>>0));
   const r=results[0],extent=Math.max(10,state.n);
   const step=extent<=10?2:extent<=100?20:extent<=1000?200:extent<=10000?2000:5000;
@@ -27,7 +27,7 @@ initLevel();initShell(()=>({...state}));
 bindPair('p',v=>{state.p=v;state.n=0;render();say('概率已改變，試驗已重設；筆記保留。');});
 $('#seed').addEventListener('change',e=>{
   if(!e.target.checkValidity()||e.target.value===''){e.target.setAttribute('aria-invalid','true');return;}
-  e.target.removeAttribute('aria-invalid');state.seed=Number(e.target.value);state.n=0;render();say('重現代碼已改變，试驗已重設。'.replace('试','試'));
+  e.target.removeAttribute('aria-invalid');state.seed=Number(e.target.value);state.n=0;render();say('重現代碼已改變，試驗已重設；筆記保留。');
 });
 $$('[data-add]').forEach(b=>b.addEventListener('click',()=>{state.n=Math.min(20000,state.n+Number(b.dataset.add));render();say(`每條序列已完成 ${state.n} 次試驗。`);}));
 $('#add-path').addEventListener('click',()=>{state.paths=Math.min(4,state.paths+1);render();say(`已顯示 ${state.paths} 條不同序列。`);});

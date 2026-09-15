@@ -2,7 +2,7 @@ import {clampFinite,ols,leverage,BASE_POINTS,fmt} from './math.mjs';
 import {$,$$,bindPair,setPair,initLevel,initShell,initNotebook,plotFrame,esc,say} from './ui.mjs';
 const params=new URL(location.href).searchParams;
 const state={rx:Math.round(clampFinite(params.get('rx'),4.5,0,12)*4)/4,ry:Math.round(clampFinite(params.get('ry'),6,0,16)*4)/4,included:params.get('included')!=='false'};
-const baseline=ols(BASE_POINTS);let fit=baseline,frame,dragging=false;
+const baseline=ols(BASE_POINTS);let fit=baseline,frame,dragPointer=null;
 const svg=$('#plot');
 function render(){
   setPair('rx',state.rx);setPair('ry',state.ry);$('#include-point').checked=state.included;
@@ -37,9 +37,9 @@ function move(e){
   state.rx=Math.round(clampFinite((p.x-frame.L)/frame.iw*12,4.5,0,12)*4)/4;
   state.ry=Math.round(clampFinite(16-(p.y-frame.T)/frame.ih*16,6,0,16)*4)/4;render();
 }
-svg.addEventListener('pointerdown',e=>{if(e.target.dataset.drag!=='point')return;e.preventDefault();dragging=true;svg.setPointerCapture(e.pointerId);svg.classList.add('dragging');});
-svg.addEventListener('pointermove',e=>{if(dragging){e.preventDefault();move(e);}});
-function end(e){if(!dragging)return;dragging=false;svg.classList.remove('dragging');if(svg.hasPointerCapture(e.pointerId))svg.releasePointerCapture(e.pointerId);}
-svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);svg.addEventListener('lostpointercapture',()=>{dragging=false;svg.classList.remove('dragging');});
+svg.addEventListener('pointerdown',e=>{if(e.target.dataset.drag!=='point'||dragPointer!==null||e.button!==0)return;e.preventDefault();dragPointer=e.pointerId;svg.setPointerCapture(e.pointerId);svg.classList.add('dragging');});
+svg.addEventListener('pointermove',e=>{if(e.pointerId===dragPointer){e.preventDefault();move(e);}});
+function end(e){if(e.pointerId!==dragPointer)return;dragPointer=null;svg.classList.remove('dragging');if(svg.hasPointerCapture(e.pointerId))svg.releasePointerCapture(e.pointerId);}
+svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);svg.addEventListener('lostpointercapture',end);
 initNotebook('regression','一個點的影響',()=>({summary:`點 (${fmt(state.rx)}, ${fmt(state.ry)}) ${state.included?'加入':'不加入'}擬合`,detail:`斜率 ${fmt(fit.slope,4)}；截距 ${fmt(fit.intercept,4)}；R² ${fmt(fit.r2,4)}；Δb = ${fmt(fit.slope-baseline.slope,4)}`,settings:{...state},fit:{slope:fit.slope,intercept:fit.intercept,r2:fit.r2},points:state.included?[...BASE_POINTS,[state.rx,state.ry]]:BASE_POINTS}));
 render();

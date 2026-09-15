@@ -1,0 +1,49 @@
+
+> math-inquiry-lab@0.1.0 verify
+> npm test && npm run check
+
+
+> math-inquiry-lab@0.1.0 test
+> node --test tests/math.test.mjs
+
+✔ quadratic target passes through (4,5) (0.8077ms)
+✔ quadratic symmetry around h (0.14ms)
+✔ positive and negative a retain vertex (0.646ms)
+✔ a=0 has no unique vertex (0.1288ms)
+✔ two real roots, one root and no real roots (0.0949ms)
+✔ computed roots satisfy equation (0.0828ms)
+✔ invalid quadratic input rejected (0.1685ms)
+✔ seeded RNG reproducible and in [0,1) (1.1996ms)
+✔ uint32 seed 0 is valid (0.1896ms)
+✔ invalid seeds rejected (0.1992ms)
+✔ Bernoulli zero trials is not a zero proportion (0.1578ms)
+✔ p=0 and p=1 endpoints (0.1145ms)
+✔ appending trials preserves original seeded path (0.1285ms)
+✔ proportions calculated from counts (2.1896ms)
+✔ teacher counterexample: a longer seeded sample can be farther from p (0.2973ms)
+✔ count deviation can grow while relative frequency approaches p (0.1393ms)
+✔ invalid probabilities and batch sizes rejected (0.2874ms)
+✔ OLS exact line (0.2386ms)
+✔ OLS centered implementation baseline (0.0898ms)
+✔ residuals are signed vertical offsets from the current fit (0.0655ms)
+✔ x mean point changes intercept not slope (0.0569ms)
+✔ far low point changes slope more than mean point (0.0573ms)
+✔ extreme point on fitted line does not change fit (0.1407ms)
+✔ equal high leverage can accompany different changes to the fitted line (0.1034ms)
+✔ identical x values and too few points are explicitly undefined (0.0424ms)
+✔ constant y returns undefined R-squared (0.0371ms)
+✔ nonfinite and malformed data rejected (0.0584ms)
+✔ clamp URL values rather than propagating NaN (0.0518ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 109.5702
+
+> math-inquiry-lab@0.1.0 check
+> node scripts/check-site.mjs
+
+PASS: 6 HTML pages, 61 local links/anchors, 82.0 KiB production assets; no external runtime assets.

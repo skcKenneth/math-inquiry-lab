@@ -19,6 +19,13 @@
 
 真正的 HTTP 瀏覽器測試必須跑；`in_memory_ui.py` 只能輔助，不得冒充端對端驗證。
 
+### 本次接手的登入方式（2026-09-15）
+
+沙箱內 `gh auth status` 沒有登入；Windows 原有 Git Credential Manager 在正常
+使用者環境可用。透過既有 Git 憑證完成 API 帳戶驗證為 `skcKenneth`，沒有輸出或
+保存 token。以登入身分核對目標 repository 不存在後，才可按使用者授權建立。
+後續若目前環境已可透過既有憑證操作，不需重複登入或再索取發布同意。
+
 ## 在 Codex 有 GitHub 授權的環境
 
 先 `gh auth status`（只確認狀態，勿輸出 token）；檢查 remote 與目標 repo。

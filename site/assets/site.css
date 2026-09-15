@@ -7,6 +7,10 @@
 @media print{@page{size:A4;margin:15mm}body{background:#fff;color:#111;font-size:11pt;line-height:1.6}.wrap{width:100%;max-width:none}.site-header,.toolbar,.breadcrumb,.control-panel,.save-panel,.save-actions,.status,.share-fallback,.teacher-note-link,footer,.notebook-heading button,.remove-record,details,.no-print{display:none!important}.lab-title{margin-bottom:12px}.lab-title h1{font-size:22pt}.lab-meta{font-size:10pt}.workspace,.focus-mode .workspace{display:block}.focus-mode .prediction-block,.focus-mode .notebook{display:block}.task{display:none}.prediction-block{margin:0 0 15px}.visual-side{break-inside:avoid}.plot-panel{width:145mm;margin:0 auto;padding:8px}.plot{max-height:82mm}.plot-heading .equation{font-size:16pt}.metrics{margin-top:8px}.metric{padding:5px 10px}.metric strong{font-size:13pt}.metric-label{font-size:9pt}.plot-note{font-size:9pt;margin-top:5px}.notebook{margin-top:18px;padding-top:14px}.reflection-grid{display:block}.reflection-grid>div{margin-top:15px;break-inside:avoid}.notebook-heading h2{font-size:14pt}.notebook-heading p{display:none}.record-list{margin:10px 0}.record-list li{break-inside:avoid;padding:7px 0;font-size:10pt}.record-list p{font-size:9pt}.record-list .empty-record{padding:5px}.question-label{min-height:0;font-size:10pt}.print-text{display:block;white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid #bbb;min-height:18mm;padding:7px;margin-bottom:10px;font-size:10pt}textarea{display:none!important}.step-label{font-size:9pt}a{color:#111;text-decoration:none}.prose{padding:0}.prose h2{break-after:avoid}.prose p,.prose li{font-size:11pt}.hero-figure{display:none}.callout{font-size:10pt;padding:6px 12px}}
 
 .hit-target{touch-action:none}
+/* The two-column tablet layout scales SVG text down more than desktop. */
+@media screen and (min-width:721px) and (max-width:900px){
+ .tick,.axis-label{font-size:22px}
+}
 /* On a phone, keep the graph visible while a pupil adjusts the controls. */
 @media screen and (max-width:720px){
  .workspace>.inquiry-side,.workspace>.visual-side{display:contents}

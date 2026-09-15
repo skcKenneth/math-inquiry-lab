@@ -13,7 +13,13 @@ export function bindPair(id, callback) {
   range.addEventListener('input',()=>update(range,number));
   number.addEventListener('input',()=>update(number,range));
 }
-export function setPair(id,n) { $(`#${id}`).value=n; $(`#${id}-number`).value=n; }
+export function setPair(id,n) {
+  [$(`#${id}`),$(`#${id}-number`)].forEach(input=>{
+    // Preserve a number input's edit buffer (for example, a just-typed "0.").
+    if(input.value.trim()===''||Number(input.value)!==n)input.value=n;
+    input.removeAttribute('aria-invalid');
+  });
+}
 export function setLevel(level) {
   const chosen=['core','explore','challenge'].includes(level)?level:'core';
   $$('.level-button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.level===chosen)));
@@ -47,6 +53,7 @@ export function initNotebook(lab,title,getSnapshot) {
   const key=`math-inquiry-lab:v1:${lab}`, fields=['prediction','explanation','exit-answer'];
   let records=[];
   const box=$('#remember'), status=$('#storage-status');
+  box.checked=false;
   const collect=()=>({schema:1,version:VERSION,lab,title,level:levelName(),
     answers:Object.fromEntries(fields.map(id=>[id,$(`#${id}`).value])),records});
   const printMirror=()=>fields.forEach(id=>$(`[data-print="${id}"]`).textContent=$(`#${id}`).value || '（尚未填寫）');

@@ -12,7 +12,8 @@ function render(){
   const {a,h,k}=state;['a','h','k'].forEach(key=>setPair(key,state[key]));
   const facts=quadraticFacts(a,h,k),vertex=facts.vertex;
   $('#equation').textContent=equation();$('#degenerate').hidden=a!==0;
-  const f=plotFrame($('#plot'),{xMin:-8,xMax:8,yMin:-5,yMax:5,xStep:2,yStep:1,title:equation(),description:`固定刻度的函數圖像。${vertex?`頂點為 (${h},${k})。`:'a 為 0，是常數函數。'}可用數值核對表閱讀座標。`});
+  const hint=vertex?($('#show-vertex').checked?`頂點為 (${h},${k})，對稱軸 x = ${h}。`:'頂點與對稱軸提示已隱藏，可勾選顯示。'):'a 為 0，是常數函數，沒有唯一頂點。';
+  const f=plotFrame($('#plot'),{xMin:-8,xMax:8,yMin:-5,yMax:5,xStep:2,yStep:1,title:equation(),description:`固定刻度的函數圖像。${hint}可用數值核對表閱讀座標。`});
   let paths='';
   if($('#show-reference').checked)paths+=f.line(sampleCurve(x=>x*x,-8,8),'reference');
   $('#reference-legend').hidden=!$('#show-reference').checked;

@@ -1,16 +1,36 @@
 {
   "version": "0.1.0",
-  "prepared": "2026-09-15",
-  "status": "LOCAL_PROTOTYPE_CHECKED_REAL_BROWSER_AND_DEPLOYMENT_PENDING",
+  "verified_date": "2026-09-15",
+  "status": "LOCAL_REAL_BROWSER_VERIFIED_DEPLOYMENT_IN_PROGRESS",
   "runtime_dependencies": 0,
-  "production_bytes": 81775,
+  "production_files": 14,
+  "production_bytes": 84005,
+  "source_zip_sha256": "fc96450aab45de7d22b65e3b59a840861991b6be63cd60648cb6d386523953d9",
   "math_unit_tests": {
-    "passed": 25
+    "passed": 28,
+    "failed": 0
   },
+  "static_pages_checked": 6,
   "static_links_checked": 61,
-  "local_http_routes_passed": 13,
-  "in_memory_ui_tests_passed": 12,
-  "real_browser_navigation": "BLOCKED_BY_HOST_POLICY; complete suite must run before release",
-  "github_deployment": "NOT_ATTEMPTED",
+  "local_http_routes_passed": 14,
+  "browser_suite": {
+    "passed": 13,
+    "failed": 0,
+    "skipped": 0,
+    "real_browser_cases": 12,
+    "explicit_clipboard_denial_fault_injection_cases": 1,
+    "chromium": "143.0.7499.4",
+    "playwright": "1.57.0",
+    "page_viewport_combinations": 18,
+    "actual_downloads": 6,
+    "print_pdfs": 3,
+    "physical_mobile_device": "NOT_TESTED"
+  },
+  "historical_mock_suite": "12 passes from starter; not rerun; not deployment evidence",
+  "repository_target": "skcKenneth/math-inquiry-lab",
+  "repository_creation": "AUTHENTICATED_ABSENCE_CONFIRMED",
+  "github_deployment": "PENDING",
+  "live_url": null,
+  "workflow_url": null,
   "classroom_trial": "NOT_CONDUCTED"
 }
