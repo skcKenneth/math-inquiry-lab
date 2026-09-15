@@ -1,0 +1,173 @@
+
+> math-inquiry-lab@0.1.0 verify
+> npm test && npm run check
+
+
+> math-inquiry-lab@0.1.0 test
+> node --test tests/math.test.mjs
+
+TAP version 13
+# Subtest: quadratic target passes through (4,5)
+ok 1 - quadratic target passes through (4,5)
+  ---
+  duration_ms: 0.879413
+  type: 'test'
+  ...
+# Subtest: quadratic symmetry around h
+ok 2 - quadratic symmetry around h
+  ---
+  duration_ms: 0.206634
+  type: 'test'
+  ...
+# Subtest: positive and negative a retain vertex
+ok 3 - positive and negative a retain vertex
+  ---
+  duration_ms: 0.621173
+  type: 'test'
+  ...
+# Subtest: a=0 has no unique vertex
+ok 4 - a=0 has no unique vertex
+  ---
+  duration_ms: 0.164792
+  type: 'test'
+  ...
+# Subtest: two real roots, one root and no real roots
+ok 5 - two real roots, one root and no real roots
+  ---
+  duration_ms: 0.112185
+  type: 'test'
+  ...
+# Subtest: computed roots satisfy equation
+ok 6 - computed roots satisfy equation
+  ---
+  duration_ms: 0.117223
+  type: 'test'
+  ...
+# Subtest: invalid quadratic input rejected
+ok 7 - invalid quadratic input rejected
+  ---
+  duration_ms: 0.193104
+  type: 'test'
+  ...
+# Subtest: seeded RNG reproducible and in [0,1)
+ok 8 - seeded RNG reproducible and in [0,1)
+  ---
+  duration_ms: 1.266963
+  type: 'test'
+  ...
+# Subtest: uint32 seed 0 is valid
+ok 9 - uint32 seed 0 is valid
+  ---
+  duration_ms: 0.261014
+  type: 'test'
+  ...
+# Subtest: invalid seeds rejected
+ok 10 - invalid seeds rejected
+  ---
+  duration_ms: 0.325989
+  type: 'test'
+  ...
+# Subtest: Bernoulli zero trials is not a zero proportion
+ok 11 - Bernoulli zero trials is not a zero proportion
+  ---
+  duration_ms: 0.941204
+  type: 'test'
+  ...
+# Subtest: p=0 and p=1 endpoints
+ok 12 - p=0 and p=1 endpoints
+  ---
+  duration_ms: 0.131053
+  type: 'test'
+  ...
+# Subtest: appending trials preserves original seeded path
+ok 13 - appending trials preserves original seeded path
+  ---
+  duration_ms: 0.303837
+  type: 'test'
+  ...
+# Subtest: proportions calculated from counts
+ok 14 - proportions calculated from counts
+  ---
+  duration_ms: 6.147488
+  type: 'test'
+  ...
+# Subtest: invalid probabilities and batch sizes rejected
+ok 15 - invalid probabilities and batch sizes rejected
+  ---
+  duration_ms: 0.485514
+  type: 'test'
+  ...
+# Subtest: OLS exact line
+ok 16 - OLS exact line
+  ---
+  duration_ms: 0.444694
+  type: 'test'
+  ...
+# Subtest: OLS centered implementation baseline
+ok 17 - OLS centered implementation baseline
+  ---
+  duration_ms: 0.163751
+  type: 'test'
+  ...
+# Subtest: x mean point changes intercept not slope
+ok 18 - x mean point changes intercept not slope
+  ---
+  duration_ms: 0.199283
+  type: 'test'
+  ...
+# Subtest: far low point changes slope more than mean point
+ok 19 - far low point changes slope more than mean point
+  ---
+  duration_ms: 0.127858
+  type: 'test'
+  ...
+# Subtest: extreme point on fitted line does not change fit
+ok 20 - extreme point on fitted line does not change fit
+  ---
+  duration_ms: 0.249046
+  type: 'test'
+  ...
+# Subtest: leverage reflects x location
+ok 21 - leverage reflects x location
+  ---
+  duration_ms: 0.123271
+  type: 'test'
+  ...
+# Subtest: identical x values and too few points are explicitly undefined
+ok 22 - identical x values and too few points are explicitly undefined
+  ---
+  duration_ms: 0.091204
+  type: 'test'
+  ...
+# Subtest: constant y returns undefined R-squared
+ok 23 - constant y returns undefined R-squared
+  ---
+  duration_ms: 0.077364
+  type: 'test'
+  ...
+# Subtest: nonfinite and malformed data rejected
+ok 24 - nonfinite and malformed data rejected
+  ---
+  duration_ms: 0.100858
+  type: 'test'
+  ...
+# Subtest: clamp URL values rather than propagating NaN
+ok 25 - clamp URL values rather than propagating NaN
+  ---
+  duration_ms: 0.089391
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 83.299853
+
+> math-inquiry-lab@0.1.0 check
+> node scripts/check-site.mjs
+
+PASS: 6 HTML pages, 61 local links/anchors, 79.9 KiB production assets; no external runtime assets.

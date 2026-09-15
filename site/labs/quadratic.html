@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="程淑鍵的中學數學互動探究原型：以預測、操作、記錄與解釋支援概念學習。">
+<meta name="color-scheme" content="light">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>二次函數 · Math Inquiry Lab</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">跳至主要內容</a>
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="../index.html" class="brand">數學探究室<span>MATH INQUIRY LAB</span>
+</a>
+<nav aria-label="主要導覽">
+<a href="../index.html">探究活動</a>
+<a href="../teacher-guide.html">教師手冊</a>
+<a href="../about.html">關於</a>
+</nav>
+</div>
+</header>
+<noscript>
+<p class="wrap no-js">此探究需要 JavaScript。你仍可閱讀問題及<a href="../teacher-guide.html">教師手冊</a>。</p>
+</noscript>
+<main id="main" class="wrap">
+<div class="breadcrumb">
+<a href="../index.html">探究活動</a> / 01</div>
+<div class="lab-title">
+<div>
+<div class="eyebrow">LAB 01 / MATHEMATICAL INQUIRY</div>
+<h1>二次函數</h1>
+<p>改變一個參數，甚麼改變了？甚麼保持不變？</p>
+</div>
+<div class="lab-meta">初三–高一 · 20–25 分鐘<br>
+<a class="teacher-note-link" href="../teacher-guide.html#quadratic">查看本活動教師提示 ↗</a>
+</div>
+</div>
+<div class="toolbar">
+<div class="levels" role="group" aria-label="選擇探究任務">
+<button class="level-button" data-level="core" type="button" aria-pressed="true">核心</button>
+<button class="level-button" data-level="explore" type="button" aria-pressed="false">深究</button>
+<button class="level-button" data-level="challenge" type="button" aria-pressed="false">挑戰</button>
+</div>
+<div class="toolbar-actions">
+<button id="focus-mode" type="button" aria-pressed="false">投影模式</button>
+<button id="share" type="button">複製設定連結</button>
+</div>
+</div>
+<div id="share-fallback" class="share-fallback" hidden>
+<label for="share-url">設定連結（不含筆記）</label>
+<input id="share-url" readonly type="text">
+</div>
+<div class="workspace">
+<aside class="inquiry-side" aria-label="任務與操作">
+<section class="task" data-level="core">
+<div class="step-label">01 / 先提出猜想</div>
+<h2>只改 h，圖像會怎樣移動？</h2>
+<ol>
+<li>從 a = 1、h = 0、k = 0 開始。</li>
+<li>只把 h 改為 2；觀察圖像最低點的位置。</li>
+<li>再試 h = −2，記錄兩個不同設定。</li>
+</ol>
+</section>
+<section class="task" data-level="explore" hidden>
+<div class="step-label">01 / 先提出猜想</div>
+<h2>「較窄」應該怎樣比較？</h2>
+<ol>
+<li>固定 h = 0、k = 0，比較 a = 0.5、1、2。</li>
+<li>在相同高度比較左右兩點的距離。</li>
+<li>再比較 a = 1 與 −1：哪些特徵改變？</li>
+</ol>
+</section>
+<section class="task" data-level="challenge" hidden>
+<div class="step-label">01 / 先提出猜想</div>
+<h2>由條件反推一條拋物線。</h2>
+<ol>
+<li>目標頂點為 (2, −3)，並經過 (4, 5)。</li>
+<li>設定 a、h、k，先估計，再代入驗證。</li>
+<li>解釋為何三個條件足以確定這條二次函數。</li>
+</ol>
+</section>
+<div class="prediction-block">
+<label class="field-label" for="prediction">先寫一句預測，再操作。</label>
+<textarea id="prediction" maxlength="4000" placeholder="我預測……，因為……">
+</textarea>
+<p class="print-text" data-print="prediction">
+</p>
+</div>
+<section class="control-panel" aria-label="圖像設定">
+<div class="step-label">02 / 操作與比較</div>
+<div class="control-row">
+<div class="control-label">
+<label for="a">
+<var>a</var> · 伸縮與方向</label>
+<input id="a-number" type="number" min="-3" max="3" step="0.25" value="1" aria-label="a 數值">
+</div>
+<input id="a" aria-label="a 滑桿" type="range" min="-3" max="3" step="0.25" value="1">
+<div class="control-endpoints">
+<span>-3</span>
+<span>3</span>
+</div>
+</div>
+<div class="control-row">
+<div class="control-label">
+<label for="h">
+<var>h</var> · 水平參數</label>
+<input id="h-number" type="number" min="-4" max="4" step="0.5" value="0" aria-label="h 數值">
+</div>
+<input id="h" aria-label="h 滑桿" type="range" min="-4" max="4" step="0.5" value="0">
+<div class="control-endpoints">
+<span>-4</span>
+<span>4</span>
+</div>
+</div>
+<div class="control-row">
+<div class="control-label">
+<label for="k">
+<var>k</var> · 垂直參數</label>
+<input id="k-number" type="number" min="-4" max="4" step="0.5" value="0" aria-label="k 數值">
+</div>
+<input id="k" aria-label="k 滑桿" type="range" min="-4" max="4" step="0.5" value="0">
+<div class="control-endpoints">
+<span>-4</span>
+<span>4</span>
+</div>
+</div>
+<label class="check-line">
+<input type="checkbox" id="show-vertex">顯示頂點與對稱軸</label>
+<label class="check-line">
+<input type="checkbox" id="show-reference" checked>保留 y = x² 作比較</label>
+<button type="button" id="reset">重設圖像</button>
+<p class="hint">重設圖像不會刪除筆記。</p>
+</section>
+</aside>
+<section class="visual-side" aria-label="動態圖像與數值">
+<div class="plot-panel">
+<div class="plot-heading">
+<div class="equation" id="equation">y = x²</div>
+<span class="plot-kicker">固定刻度 · 不自動縮放</span>
+</div>
+<svg class="plot" id="plot" role="img" aria-label="二次函數的動態圖像">
+</svg>
+<div class="legend">
+<span class="legend-item">
+<i class="legend-line">
+</i>目前函數</span>
+<span class="legend-item" id="reference-legend">
+<i class="legend-line dash">
+</i>y = x²</span>
+</div>
+</div>
+<div id="degenerate" class="callout" hidden>a = 0 時，圖像是常數函數 y = k，不再是二次函數；沒有唯一頂點。</div>
+<p class="plot-note">視窗固定為 −8 ≤ x ≤ 8、−5 ≤ y ≤ 5；超出部分被裁去，不代表圖像在邊界終止。</p>
+<details>
+<summary>數值核對：先觀察，再打開。</summary>
+<p id="facts">
+</p>
+<table>
+<caption>比較三個等距橫坐標</caption>
+<thead>
+<tr>
+<th scope="col">x</th>
+<th scope="col">y</th>
+</tr>
+</thead>
+<tbody id="sample-values">
+</tbody>
+</table>
+</details>
+<div class="callout">
+<p>試着用「因為 x − h = …」解釋位置，而不只記住左右移動的口訣。</p>
+</div>
+</section>
+</div>
+<section class="notebook" aria-labelledby="notebook-title">
+<div class="notebook-heading">
+<div>
+<div class="step-label">03 / 記錄證據</div>
+<h2 id="notebook-title">把比較留下來。</h2>
+<p>筆記跨任務保留；最多 8 筆。<span id="record-count">0 / 8</span>
+</p>
+</div>
+<button id="record" class="primary" type="button">記錄目前結果</button>
+</div>
+<ol class="record-list" id="record-list">
+</ol>
+<div class="reflection-grid">
+<div>
+<div class="step-label">04 / 解釋與修正</div>
+<h3>現在，你會怎樣解釋？</h3>
+<p class="question-label">引用至少兩筆紀錄，說明它們支持甚麼；也可以修正原來的猜想。</p>
+<label class="field-label" for="explanation">我的解釋</label>
+<textarea id="explanation" maxlength="4000" placeholder="我比較了……與……，因此我認為……">
+</textarea>
+<p class="print-text" data-print="explanation">
+</p>
+</div>
+<div>
+<div class="step-label">05 / 離堂題</div>
+<h3>離開圖像，再想一步。</h3>
+<p class="question-label" id="exit-question">不操作圖像，描述 y = −2(x + 1)² + 3 的頂點、對稱軸及開口方向，並解釋理由。</p>
+<label class="field-label" for="exit-answer">我的回答</label>
+<textarea id="exit-answer" maxlength="4000" placeholder="請寫出理由，而不只是答案。">
+</textarea>
+<p class="print-text" data-print="exit-answer">
+</p>
+</div>
+</div>
+<div class="save-panel">
+<div>
+<label class="check-line">
+<input id="remember" type="checkbox">在此瀏覽器記住本活動（共用電腦勿勾選）</label>
+<p class="hint" id="storage-status">預設只留在本頁，關閉後不保留。請先匯出重要筆記。</p>
+<p class="hint">不需姓名。匯出檔案由你自行保管或提交，網站不會自動收集。</p>
+</div>
+<div class="save-actions">
+<button type="button" id="export-text">匯出文字</button>
+<button type="button" id="export-json">匯出 JSON</button>
+<button type="button" id="print">列印筆記</button>
+<button type="button" id="clear-notes" class="text-button">清除筆記</button>
+</div>
+</div>
+</section>
+<p role="status" aria-live="polite" id="status" class="status">
+</p>
+</main>
+<script type="module" src="../assets/quadratic.mjs">
+</script>
+<footer>
+<div class="wrap footer-inner">
+<div>程淑鍵 · Kenneth Cheng<br>
+<a href="https://skckenneth.github.io/">個人網誌 ↗</a>
+</div>
+<div>教學原型 v0.1 · 尚未經課堂試用<br>無帳戶 · 無筆記上傳 · 共用電腦請勿儲存筆記</div>
+</div>
+</footer>
+</body>
+</html>

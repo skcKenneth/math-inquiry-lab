@@ -1,0 +1,15 @@
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+.artifacts/
+.env
+.env.*
+!.env.example
+private/
+student-work/
+*.learning-record.json
+*-learning-record.json
+*-learning-record.txt
+.DS_Store
+Thumbs.db

@@ -1,0 +1,98 @@
+# Math Inquiry Lab｜數學探究室
+
+程淑鍵（Kenneth Cheng）的極簡中學數學互動探究原型。
+
+**不是只有設計稿：`site/` 已含可操作的三個活動、學生筆記及教師手冊。**
+目前版本 `0.1.0` 尚未在真實課堂試用；沒有建立遠端 repository，沒有部署到 GitHub Pages。
+
+## 你只需要先做甚麼
+
+解壓本專案到一個**新資料夾**，在 Codex 開啟該資料夾，把
+`prompts/START_CODEX_ZH.md` 貼給它。不要放入或覆蓋你多年經營的個人網誌 repository。
+
+目標專案名稱：`math-inquiry-lab`。預定網址（不是已上線連結）：
+`https://skckenneth.github.io/math-inquiry-lab/`。
+
+## 本機試用：不用安裝 npm 套件
+
+需要 Node.js 22 或以上。在專案根目錄執行：
+
+```sh
+npm start
+```
+
+再開 `http://127.0.0.1:4173/math-inquiry-lab/`。
+本機 server 只監聽 `127.0.0.1`；不能直接供同一 Wi-Fi 的其他裝置使用。
+不要直接雙擊 HTML：瀏覽器對 `file://` ES modules 的處理可能令活動無法載入。
+正式部署後，學生端只需要瀏覽器，不需要 Node、Python 或 Codex。
+
+## 已包含的活動
+
+| 活動 | 操作 | 探究重點 |
+|---|---|---|
+| 二次函數 | a/h/k 滑桿與數值輸入、參考曲線、頂點、數值表 | 控制變量、平方項與頂點、a=0、由條件反推 |
+| 概率 | 固定 seed、增加試驗、四條可重現序列 | 相對頻率、一般趨勢與必然性、獨立性 |
+| 迴歸 | 移動一點、保留基準擬合、殘差及 R² | x 位置與垂直偏離、槓桿與影響、資料判斷 |
+
+每個活動有核心／深究／挑戰、預測、最多八筆設定紀錄、解釋、離堂題。
+另有投影模式、只分享參數的設定連結、文字及 JSON 匯出、列印筆記。
+手機上圖像會在操作區內置頂，讓學生調參時仍看到圖像。
+
+## 檔案位置
+
+```text
+site/                      # 唯一公開部署內容
+  index.html               # 活動列表
+  labs/                    # 三個可直接深連結的活動
+  teacher-guide.html       # 公開教師提示與參考推理
+  about.html               # 狀態、設計與資料說明
+  assets/                  # 共用 CSS、純數學及互動程式
+scripts/                   # 本機 server、連結與大小檢查
+tests/                     # 數學、真實瀏覽器、受限環境 DOM 測試
+docs/                      # 設計、部署、試教及 QA 紀錄
+prompts/                   # Codex 工作指令
+.github/workflows/         # 測試通過後才發布 Pages
+AGENTS.md                  # Codex 必須遵守的邊界
+```
+
+## 測試
+
+```sh
+npm run verify
+python -m pip install -r requirements-dev.txt
+python -m playwright install chromium
+python tests/browser_smoke.py
+```
+
+瀏覽器測試只用於開發。GitHub Actions 會自動安裝 Chromium 及所需系統依賴。
+本機已裝 Chromium 時可設定環境變量 `CHROMIUM_EXECUTABLE`；一般不用。
+實際完成及未完成的測試見 `docs/TEST_REPORT.md`，不要把 DOM 模擬測試當成真實部署測試。
+
+## 調整內容
+
+- 文字及任務：直接修改 `site/labs/*.html`，保持繁體中文及現有結構。
+- 配色、間距、字體：`site/assets/site.css` 最頂部的 CSS 變量。
+- 純數學：`site/assets/math.mjs`；改動後必須補測試。
+- 三個活動行為：相應名稱的 `.mjs`。
+- 教師提示：`site/teacher-guide.html`。不另維護一份可能失同步的答案庫。
+
+不需加入 React、Vite、KaTeX、Plotly 或 GeoGebra 才能運作。
+本版數學符號足夠簡單，以 HTML/SVG 顯示；日後公式複雜才另作取捨。
+
+## 資料及狀態
+
+不設登入、不收姓名、不上傳答案、不做追蹤或 AI 判分。
+預設不持久儲存文字；只有勾選才寫入本機 localStorage。
+同一 GitHub Pages 主機的不同路徑不是安全隔離邊界，勿輸入敏感資料。
+匯出由學生自己保管／交予教師；頁面不會自動提交作業。
+沒有 service worker，重新開頁的離線可用性不保證。
+
+不要把任何真實學生紀錄提交到公開 repository；`.gitignore` 只提供部分防呆。
+本版沒有附加字型檔、學校校徽、照片、學生成績或第三方資料集。
+授權條款尚未指定，發布前由權利持有人決定。
+
+## 由原型到可以寫入 CV
+
+先核對內容 → 部署及檢查 → 試教一個活動 → 保存匿名學習證據 → 根據回應修訂。
+在試教前只能寫「設計及開發互動探究原型」，不能寫成「已提升學生學習表現」。
+見 `docs/CLASSROOM_TRIAL.md`。

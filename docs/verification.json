@@ -1,0 +1,16 @@
+{
+  "version": "0.1.0",
+  "prepared": "2026-09-15",
+  "status": "LOCAL_PROTOTYPE_CHECKED_REAL_BROWSER_AND_DEPLOYMENT_PENDING",
+  "runtime_dependencies": 0,
+  "production_bytes": 81775,
+  "math_unit_tests": {
+    "passed": 25
+  },
+  "static_links_checked": 61,
+  "local_http_routes_passed": 13,
+  "in_memory_ui_tests_passed": 12,
+  "real_browser_navigation": "BLOCKED_BY_HOST_POLICY; complete suite must run before release",
+  "github_deployment": "NOT_ATTEMPTED",
+  "classroom_trial": "NOT_CONDUCTED"
+}

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="程淑鍵的中學數學互動探究原型：以預測、操作、記錄與解釋支援概念學習。">
+<meta name="color-scheme" content="light">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>教師手冊 · Math Inquiry Lab</title>
+<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">跳至主要內容</a>
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="./index.html" class="brand">數學探究室<span>MATH INQUIRY LAB</span>
+</a>
+<nav aria-label="主要導覽">
+<a href="./index.html">探究活動</a>
+<a href="./teacher-guide.html" aria-current="page">教師手冊</a>
+<a href="./about.html">關於</a>
+</nav>
+</div>
+</header>
+<main id="main" class="wrap prose">
+<div class="eyebrow">TEACHER GUIDE / 教師手冊</div>
+<h1>先聽學生怎樣想，再決定怎樣教。</h1>
+<p class="lead">這是三個可調整的課堂設計，不是已驗證成效的教材。年級與時間為建議，請按先備知識安排。</p>
+<p>基本流程：用一句預測暴露原有想法；一次只改一個條件；留下兩筆可比較的紀錄；最後用證據修正解釋。網頁不替代教師提問，也不自動判斷開放題。</p>
+<div class="callout">
+<p>本頁向所有人公開，不是受密碼保護的「教師模式」。提示及參考答案不適合用作保密測驗。</p>
+</div>
+<h2>三個層次，不是三類學生。</h2>
+<p>「核心、深究、挑戰」指任務深度，學生可按準備情況轉換。操作熟練不等於理解；不以完成頁面或點擊次數當作學習成效。投影模式只是隱藏筆記、放大圖像，不啟動任何監控。</p>
+<table>
+<thead>
+<tr>
+<th>階段</th>
+<th>教師可留意的證據</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>預測</td>
+<td>學生能否指出「我只改哪一個條件」？</td>
+</tr>
+<tr>
+<td>比較</td>
+<td>兩筆紀錄能否支持所提出的結論？</td>
+</tr>
+<tr>
+<td>解釋</td>
+<td>能否從數學關係解釋，而不只是描述畫面？</td>
+</tr>
+<tr>
+<td>遷移</td>
+<td>離開互動圖像後，能否解釋一個新例子？</td>
+</tr>
+</tbody>
+</table>
+<h2 id="quadratic">01 / 二次函數</h2>
+<p>
+<strong>先備知識：</strong>座標、代入求值、平方；建議 20–25 分鐘。<a href="./labs/quadratic.html">開啟活動 →</a>
+</p>
+<p>
+<strong>目標：</strong>以平方項解釋頂點與平移；在固定刻度及相同相對高度下比較伸縮；辨認 a = 0 的退化情況。</p>
+<p>
+<strong>提問：</strong>「在哪個 x 值，平方項等於零？」比「h 正數向哪邊？」更能引出原因。比較 a = 0.5、1、2 時，可固定 y − k = 2，再比較 |x − h|；不要換刻度後只憑視覺大小下結論。</p>
+<p>
+<strong>分層：</strong>核心只改 h；需要支援時先填 h − 1、h、h + 1 的表格。深究比較 |a|，再比較正負 a。挑戰由頂點及一點反推參數，不靠亂拖猜中。</p>
+<details>
+<summary>參考推理與離堂題</summary>
+<p>對 a ≠ 0，平方項在 x = h 時為零，因此頂點是 (h,k)；只要 (y − k)/a ≥ 0，便有 |x − h| = √((y − k)/a)。比較同號 a 時，固定 y − k，|a| 愈大，|x − h| 愈小。a = 0 時是常數函數，不應仍顯示唯一頂點。</p>
+<p>挑戰：頂點 (2,−3) 給出 h = 2、k = −3；代入 (4,5)，5 = 4a − 3，所以 a = 2。離堂題：頂點 (−1,3)，對稱軸 x = −1，向下開口。圖像觀察之後仍需代數論證。</p>
+</details>
+<h2 id="probability">02 / 概率與相對頻率</h2>
+<p>
+<strong>先備知識：</strong>比率與概率；建議 20–25 分鐘。<a href="./labs/probability.html">開啟活動 →</a>
+</p>
+<p>
+<strong>目標：</strong>區分理論概率與實驗相對頻率；區分一般穩定趨勢與每一步必然接近；在固定概率的獨立試驗模型中避免「補回偏差」的推理。</p>
+<p>
+<strong>提問：</strong>「你能找到某一步比前一步離 p 更遠嗎？」「多條序列一起看，與只挑一條漂亮路徑有甚麼不同？」先 p = 0.5，再 p = 0.7，避免把大數法則誤記成『一定趨近 0.5』。</p>
+<p>
+<strong>分層：</strong>核心比較小樣本與大樣本；深究加入第二條序列，同時看頻率偏差與次數偏差；挑戰討論連續正面會否改變下一次概率。短時間可只做 10、100、1,000 次。</p>
+<details>
+<summary>參考推理與模擬限制</summary>
+<p>理想化的獨立 Bernoulli(p) 模型中，相對頻率的方差是 p(1 − p)/n；這描述同一 n 下重複試驗的變異，不表示每條樣本路徑在每一步都單調接近 p。次數與 np 的絕對偏差可以增加，同時相對偏差減少。</p>
+<p>有限次模擬不是大數法則的證明。網頁用固定 seed 的偽隨機數重現教學示例，不適合作為密碼學或嚴格隨機試驗工具。畫面大量資料會抽樣連線；表中數值仍由全部試驗計算。</p>
+<p>離堂題的「一定」不成立；1,000 次的某條序列可以比 100 次的某次結果離 0.5 更遠。在設定的獨立試驗模型中，之前五次正面不會令下一次的反面概率改變。</p>
+</details>
+<h2 id="regression">03 / 一個點的影響</h2>
+<p>
+<strong>先備知識：</strong>直線、散點圖及平均數；建議 25–30 分鐘。<a href="./labs/regression.html">開啟活動 →</a>
+</p>
+<p>
+<strong>目標：</strong>比較加入一點前後的擬合；從 x 位置及垂直偏離區分高槓桿、離群與影響；不把高 R² 當成因果或有效預測的證據。</p>
+<p>
+<strong>提問：</strong>「為甚麼 x = 4.5 的點往上移，斜率可以幾乎不變？」「一個遠離其他 x、但接近原有趨勢的點，與偏離趨勢的點有何不同？」保留基準虛線，避免只看變化後的圖。</p>
+<p>
+<strong>分層：</strong>核心只移 y，比較斜率與截距；深究比較兩個預設；挑戰討論是否需要核實或保留觀測值。未教 R² 時，可先用斜率變化及垂直殘差，不要求推導公式。</p>
+<details>
+<summary>參考推理與資料說明</summary>
+<p>原有八點的平均 x 為 4.5。加入 x = 4.5 的點不改變 Sxx 或 Sxy，故此例中斜率不變，但 y 平均及截距會改變。一般高槓桿值反映 x 位置特殊，不等於一定造成大影響；還要考慮它相對原有趨勢的偏離。</p>
+<p>程式以含截距的普通最小平方法計算 b = Sxy/Sxx、c = ȳ − bx̄、R² = 1 − SSE/SST。若 x 無變異，斜率無法唯一估計；若 y 為常數，R² 顯示未定義，不能硬設為 1。</p>
+<p>資料全部是設計用的示意點，不是學生真實成績。不能只為提高 R² 刪除觀測值；應先檢查來源、量度與研究目的。</p>
+</details>
+<h2>把活動變成教學證據</h2>
+<p>先在一個班試用一個活動。課前保留匿名預測，課後保留解釋及離堂題，再記下你如何因應學生回答調整教學。不要以網站完成或作品漂亮作為已改善學習的證明。</p>
+<p>建議觀察三件事：是否只改一個變量；是否引用可比較的紀錄；能否用數學關係解釋新例子。對同一份作品作 0／1／2 級描述時，應保留評分理由及例子；這是教師設計的初步觀察表，不是經驗證量表。</p>
+<h2>筆記、私隱與教室設備</h2>
+<p>預設不儲存筆記；學生自行匯出文字或 JSON。勾選本機儲存後，筆記只寫入目前瀏覽器的活動專用項目。共用電腦應取消勾選或清除筆記；不要填寫姓名、私人資料或真實成績。教師不會自動收到筆記。</p>
+<p>設定連結只包含參數、seed、試驗次數及任務層級，不含筆記。首次載入需連線；載入完成後的操作不需要額外網絡請求。沒有 service worker，不能保證重新開頁時離線可用。託管平台仍可能記錄一般連線資料，故不能宣稱「完全無網絡紀錄」。</p>
+<p>桌面可用滑桿及數值輸入；手機可直接輸入數值，不必精準拖動點。以 Tab 鍵巡覽，滑桿可用方向鍵。列印會保留當前圖像、文字筆記及紀錄，隱藏按鈕。列印不是作業提交。</p>
+</main>
+<footer>
+<div class="wrap footer-inner">
+<div>程淑鍵 · Kenneth Cheng<br>
+<a href="https://skckenneth.github.io/">個人網誌 ↗</a>
+</div>
+<div>教學原型 v0.1 · 尚未經課堂試用<br>無帳戶 · 無筆記上傳 · 共用電腦請勿儲存筆記</div>
+</div>
+</footer>
+</body>
+</html>

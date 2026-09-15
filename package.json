@@ -1,0 +1,14 @@
+{
+  "name": "math-inquiry-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Minimal, dependency-free secondary mathematics inquiry prototypes for Kenneth Cheng.",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test tests/math.test.mjs",
+    "check": "node scripts/check-site.mjs",
+    "verify": "npm test && npm run check"
+  }
+}

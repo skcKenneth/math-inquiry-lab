@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="程淑鍵的中學數學互動探究原型：以預測、操作、記錄與解釋支援概念學習。">
+<meta name="color-scheme" content="light">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>一個點的影響 · Math Inquiry Lab</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">跳至主要內容</a>
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="../index.html" class="brand">數學探究室<span>MATH INQUIRY LAB</span>
+</a>
+<nav aria-label="主要導覽">
+<a href="../index.html">探究活動</a>
+<a href="../teacher-guide.html">教師手冊</a>
+<a href="../about.html">關於</a>
+</nav>
+</div>
+</header>
+<noscript>
+<p class="wrap no-js">此探究需要 JavaScript。你仍可閱讀問題及<a href="../teacher-guide.html">教師手冊</a>。</p>
+</noscript>
+<main id="main" class="wrap">
+<div class="breadcrumb">
+<a href="../index.html">探究活動</a> / 03</div>
+<div class="lab-title">
+<div>
+<div class="eyebrow">LAB 03 / MATHEMATICAL INQUIRY</div>
+<h1>一個點的影響</h1>
+<p>一個觀測值，可以把整條迴歸線改變多少？</p>
+</div>
+<div class="lab-meta">高中／建模班 · 25–30 分鐘<br>
+<a class="teacher-note-link" href="../teacher-guide.html#regression">查看本活動教師提示 ↗</a>
+</div>
+</div>
+<div class="toolbar">
+<div class="levels" role="group" aria-label="選擇探究任務">
+<button class="level-button" data-level="core" type="button" aria-pressed="true">核心</button>
+<button class="level-button" data-level="explore" type="button" aria-pressed="false">深究</button>
+<button class="level-button" data-level="challenge" type="button" aria-pressed="false">挑戰</button>
+</div>
+<div class="toolbar-actions">
+<button id="focus-mode" type="button" aria-pressed="false">投影模式</button>
+<button id="share" type="button">複製設定連結</button>
+</div>
+</div>
+<div id="share-fallback" class="share-fallback" hidden>
+<label for="share-url">設定連結（不含筆記）</label>
+<input id="share-url" readonly type="text">
+</div>
+<div class="workspace">
+<aside class="inquiry-side" aria-label="任務與操作">
+<section class="task" data-level="core">
+<div class="step-label">01 / 先提出猜想</div>
+<h2>把一個點移高，直線就會變斜？</h2>
+<ol>
+<li>比較不加入移動點與加入移動點的擬合。</li>
+<li>固定移動點 x = 4.5，改變 y。</li>
+<li>記錄斜率與截距；哪一個變化較明顯？</li>
+</ol>
+</section>
+<section class="task" data-level="explore" hidden>
+<div class="step-label">01 / 先提出猜想</div>
+<h2>遠離直線，還是遠離其他 x？</h2>
+<ol>
+<li>比較「中間的高點」與「右側的低點」。</li>
+<li>觀察移動點與原來直線的距離，以及 x 的位置。</li>
+<li>解釋為何不同位置的點可能有不同影響。</li>
+</ol>
+</section>
+<section class="task" data-level="challenge" hidden>
+<div class="step-label">01 / 先提出猜想</div>
+<h2>高影響力，等於應該刪除？</h2>
+<ol>
+<li>比較「右側延伸點」與「右側的低點」。</li>
+<li>遠離其他 x 的點一定會大幅改變直線嗎？</li>
+<li>提出保留或調查一個觀測值的理由，而非只追求高 R²。</li>
+</ol>
+</section>
+<div class="prediction-block">
+<label class="field-label" for="prediction">先寫一句預測，再操作。</label>
+<textarea id="prediction" maxlength="4000" placeholder="我預測……，因為……">
+</textarea>
+<p class="print-text" data-print="prediction">
+</p>
+</div>
+<section class="control-panel" aria-label="圖像設定">
+<div class="step-label">02 / 操作與比較</div>
+<div class="control-row">
+<div class="control-label">
+<label for="rx">移動點 <var>x</var>
+</label>
+<input id="rx-number" type="number" min="0" max="12" step="0.25" value="4.5" aria-label="rx 數值">
+</div>
+<input id="rx" aria-label="rx 滑桿" type="range" min="0" max="12" step="0.25" value="4.5">
+<div class="control-endpoints">
+<span>0</span>
+<span>12</span>
+</div>
+</div>
+<div class="control-row">
+<div class="control-label">
+<label for="ry">移動點 <var>y</var>
+</label>
+<input id="ry-number" type="number" min="0" max="16" step="0.25" value="6" aria-label="ry 數值">
+</div>
+<input id="ry" aria-label="ry 滑桿" type="range" min="0" max="16" step="0.25" value="6">
+<div class="control-endpoints">
+<span>0</span>
+<span>16</span>
+</div>
+</div>
+<label class="check-line">
+<input type="checkbox" id="include-point" checked>加入移動點重新擬合</label>
+<label class="check-line">
+<input type="checkbox" id="residuals">顯示垂直殘差</label>
+<div class="button-row">
+<button type="button" data-preset="middle">中間的高點</button>
+<button type="button" data-preset="low">右側的低點</button>
+<button type="button" data-preset="along">右側延伸點</button>
+</div>
+<button type="button" id="reset">重設圖像</button>
+<p class="hint">可拖動菱形點，亦可用滑桿或數值輸入；原有 8 個點保持不變。</p>
+</section>
+</aside>
+<section class="visual-side" aria-label="動態圖像與數值">
+<div class="plot-panel">
+<div class="plot-heading">
+<div class="equation" id="equation">y = bx + c</div>
+<span class="plot-kicker">示意資料 · 非真實學生資料</span>
+</div>
+<svg class="plot drag-plot" id="plot" role="img" aria-label="包含可移動觀測值的散點圖與迴歸線">
+</svg>
+<div class="legend">
+<span class="legend-item">
+<i class="legend-line">
+</i>目前擬合</span>
+<span class="legend-item">
+<i class="legend-line dash">
+</i>原有 8 點擬合</span>
+<span class="legend-item">◇ 移動點</span>
+</div>
+</div>
+<div class="metrics">
+<div class="metric">
+<span class="metric-label">目前斜率 b</span>
+<strong id="slope">—</strong>
+</div>
+<div class="metric">
+<span class="metric-label">斜率變化 Δb</span>
+<strong id="delta">—</strong>
+</div>
+<div class="metric">
+<span class="metric-label">目前 R²</span>
+<strong id="r2">—</strong>
+</div>
+</div>
+<p class="plot-note">刻度固定。擬合採含截距的普通最小平方法；原有點為空心圓，移動點為菱形。</p>
+<details>
+<summary>比較原有與目前擬合</summary>
+<table>
+<thead>
+<tr>
+<th scope="col">擬合</th>
+<th scope="col">斜率</th>
+<th scope="col">截距</th>
+<th scope="col">R²</th>
+</tr>
+</thead>
+<tbody id="fit-values">
+</tbody>
+</table>
+<p id="leverage">
+</p>
+</details>
+<div class="callout">
+<p>R² 描述這批資料中的擬合程度，不證明因果關係，也不保證新資料的預測可靠。不要只為提高 R² 而刪除觀測值。</p>
+</div>
+</section>
+</div>
+<section class="notebook" aria-labelledby="notebook-title">
+<div class="notebook-heading">
+<div>
+<div class="step-label">03 / 記錄證據</div>
+<h2 id="notebook-title">把比較留下來。</h2>
+<p>筆記跨任務保留；最多 8 筆。<span id="record-count">0 / 8</span>
+</p>
+</div>
+<button id="record" class="primary" type="button">記錄目前結果</button>
+</div>
+<ol class="record-list" id="record-list">
+</ol>
+<div class="reflection-grid">
+<div>
+<div class="step-label">04 / 解釋與修正</div>
+<h3>現在，你會怎樣解釋？</h3>
+<p class="question-label">引用至少兩筆紀錄，說明它們支持甚麼；也可以修正原來的猜想。</p>
+<label class="field-label" for="explanation">我的解釋</label>
+<textarea id="explanation" maxlength="4000" placeholder="我比較了……與……，因此我認為……">
+</textarea>
+<p class="print-text" data-print="explanation">
+</p>
+</div>
+<div>
+<div class="step-label">05 / 離堂題</div>
+<h3>離開圖像，再想一步。</h3>
+<p class="question-label" id="exit-question">一個 x 值很極端、但接近原有趨勢的點，與一個同樣極端、卻遠離趨勢的點，對直線的影響可能有何不同？</p>
+<label class="field-label" for="exit-answer">我的回答</label>
+<textarea id="exit-answer" maxlength="4000" placeholder="請寫出理由，而不只是答案。">
+</textarea>
+<p class="print-text" data-print="exit-answer">
+</p>
+</div>
+</div>
+<div class="save-panel">
+<div>
+<label class="check-line">
+<input id="remember" type="checkbox">在此瀏覽器記住本活動（共用電腦勿勾選）</label>
+<p class="hint" id="storage-status">預設只留在本頁，關閉後不保留。請先匯出重要筆記。</p>
+<p class="hint">不需姓名。匯出檔案由你自行保管或提交，網站不會自動收集。</p>
+</div>
+<div class="save-actions">
+<button type="button" id="export-text">匯出文字</button>
+<button type="button" id="export-json">匯出 JSON</button>
+<button type="button" id="print">列印筆記</button>
+<button type="button" id="clear-notes" class="text-button">清除筆記</button>
+</div>
+</div>
+</section>
+<p role="status" aria-live="polite" id="status" class="status">
+</p>
+</main>
+<script type="module" src="../assets/regression.mjs">
+</script>
+<footer>
+<div class="wrap footer-inner">
+<div>程淑鍵 · Kenneth Cheng<br>
+<a href="https://skckenneth.github.io/">個人網誌 ↗</a>
+</div>
+<div>教學原型 v0.1 · 尚未經課堂試用<br>無帳戶 · 無筆記上傳 · 共用電腦請勿儲存筆記</div>
+</div>
+</footer>
+</body>
+</html>

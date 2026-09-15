@@ -1,0 +1,17 @@
+test_01_home_screenshot (__main__.MemoryUI.test_01_home_screenshot) ... ok
+test_02_quadratic_and_zero (__main__.MemoryUI.test_02_quadratic_and_zero) ... ok
+test_03_malicious_url_values (__main__.MemoryUI.test_03_malicious_url_values) ... ok
+test_04_layers_notes_and_record (__main__.MemoryUI.test_04_layers_notes_and_record) ... ok
+test_05_storage_is_opt_in_and_scoped (__main__.MemoryUI.test_05_storage_is_opt_in_and_scoped) ... ok
+test_06_sharing_contains_no_text (__main__.MemoryUI.test_06_sharing_contains_no_text) ... ok
+test_07_exports_and_print_mirror (__main__.MemoryUI.test_07_exports_and_print_mirror) ... ok
+test_08_probability (__main__.MemoryUI.test_08_probability) ... ok
+test_09_regression_and_drag (__main__.MemoryUI.test_09_regression_and_drag) ... ok
+test_10_mobile_and_tablet_widths (__main__.MemoryUI.test_10_mobile_and_tablet_widths) ... ok
+test_11_keyboard_and_projection (__main__.MemoryUI.test_11_keyboard_and_projection) ... ok
+test_12_limits_and_clear (__main__.MemoryUI.test_12_limits_and_clear) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 7.264s
+
+OK

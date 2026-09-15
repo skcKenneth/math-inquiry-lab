@@ -1,0 +1,2 @@
+# Browser QA only. The published website has no Python dependency.
+playwright==1.57.0

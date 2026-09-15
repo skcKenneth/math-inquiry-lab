@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="程淑鍵的中學數學互動探究原型：以預測、操作、記錄與解釋支援概念學習。">
+<meta name="color-scheme" content="light">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>概率與相對頻率 · Math Inquiry Lab</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">跳至主要內容</a>
+<header class="site-header">
+<div class="wrap header-inner">
+<a href="../index.html" class="brand">數學探究室<span>MATH INQUIRY LAB</span>
+</a>
+<nav aria-label="主要導覽">
+<a href="../index.html">探究活動</a>
+<a href="../teacher-guide.html">教師手冊</a>
+<a href="../about.html">關於</a>
+</nav>
+</div>
+</header>
+<noscript>
+<p class="wrap no-js">此探究需要 JavaScript。你仍可閱讀問題及<a href="../teacher-guide.html">教師手冊</a>。</p>
+</noscript>
+<main id="main" class="wrap">
+<div class="breadcrumb">
+<a href="../index.html">探究活動</a> / 02</div>
+<div class="lab-title">
+<div>
+<div class="eyebrow">LAB 02 / MATHEMATICAL INQUIRY</div>
+<h1>概率與相對頻率</h1>
+<p>試驗愈多，結果就一定愈接近理論概率嗎？</p>
+</div>
+<div class="lab-meta">初中–高中 · 20–25 分鐘<br>
+<a class="teacher-note-link" href="../teacher-guide.html#probability">查看本活動教師提示 ↗</a>
+</div>
+</div>
+<div class="toolbar">
+<div class="levels" role="group" aria-label="選擇探究任務">
+<button class="level-button" data-level="core" type="button" aria-pressed="true">核心</button>
+<button class="level-button" data-level="explore" type="button" aria-pressed="false">深究</button>
+<button class="level-button" data-level="challenge" type="button" aria-pressed="false">挑戰</button>
+</div>
+<div class="toolbar-actions">
+<button id="focus-mode" type="button" aria-pressed="false">投影模式</button>
+<button id="share" type="button">複製設定連結</button>
+</div>
+</div>
+<div id="share-fallback" class="share-fallback" hidden>
+<label for="share-url">設定連結（不含筆記）</label>
+<input id="share-url" readonly type="text">
+</div>
+<div class="workspace">
+<aside class="inquiry-side" aria-label="任務與操作">
+<section class="task" data-level="core">
+<div class="step-label">01 / 先提出猜想</div>
+<h2>10 次，足以判斷嗎？</h2>
+<ol>
+<li>設定正面概率 p = 0.5，先做 10 次試驗。</li>
+<li>增加至較大的試驗次數，比較相對頻率。</li>
+<li>記錄兩個樣本大小，不把一次結果當成定律。</li>
+</ol>
+</section>
+<section class="task" data-level="explore" hidden>
+<div class="step-label">01 / 先提出猜想</div>
+<h2>不同序列，會有相同走勢嗎？</h2>
+<ol>
+<li>加入另一條序列，保持相同 p 與試驗次數。</li>
+<li>比較多條路徑：是否每一步都更接近 p？</li>
+<li>同時查看相對頻率與正面次數偏差，解釋差異。</li>
+</ol>
+</section>
+<section class="task" data-level="challenge" hidden>
+<div class="step-label">01 / 先提出猜想</div>
+<h2>連續正面之後，反面會「補返」嗎？</h2>
+<ol>
+<li>在固定 p 的獨立試驗模型中思考。</li>
+<li>連續五次正面，會改變下一次的正面概率嗎？</li>
+<li>試 p = 0.7：相對頻率應圍繞哪個值，而非必然 0.5？</li>
+</ol>
+</section>
+<div class="prediction-block">
+<label class="field-label" for="prediction">先寫一句預測，再操作。</label>
+<textarea id="prediction" maxlength="4000" placeholder="我預測……，因為……">
+</textarea>
+<p class="print-text" data-print="prediction">
+</p>
+</div>
+<section class="control-panel" aria-label="圖像設定">
+<div class="step-label">02 / 操作與比較</div>
+<div class="control-row">
+<div class="control-label">
+<label for="p">正面概率 <var>p</var>
+</label>
+<input id="p-number" type="number" min="0" max="1" step="0.05" value="0.5" aria-label="p 數值">
+</div>
+<input id="p" aria-label="p 滑桿" type="range" min="0" max="1" step="0.05" value="0.5">
+<div class="control-endpoints">
+<span>0</span>
+<span>1</span>
+</div>
+</div>
+<div class="control-label">
+<label for="seed">重現代碼 seed</label>
+<input id="seed" type="number" min="0" max="999999" step="1" value="2026">
+</div>
+<p class="hint">改變 p 或 seed 會重設試驗；筆記保留。</p>
+<div class="button-row">
+<button type="button" data-add="10">＋10 次</button>
+<button type="button" data-add="100">＋100 次</button>
+<button type="button" data-add="1000">＋1,000 次</button>
+<button type="button" data-add="10000">＋10,000 次</button>
+</div>
+<div class="button-row">
+<button type="button" id="add-path">加入另一條序列</button>
+<button type="button" id="new-seed">另起一組</button>
+</div>
+<button type="button" id="reset">重設試驗</button>
+<p class="hint">最多 20,000 次、4 條序列。固定 seed 可重現同一組偽隨機結果。</p>
+</section>
+</aside>
+<section class="visual-side" aria-label="動態圖像與數值">
+<div class="plot-panel">
+<div class="plot-heading">
+<div class="equation">相對頻率 = 正面次數 / n</div>
+<span class="plot-kicker" id="paths-label">1 條序列</span>
+</div>
+<svg class="plot" id="plot" role="img" aria-label="正面相對頻率隨試驗次數改變">
+</svg>
+<div class="legend">
+<span class="legend-item">
+<i class="legend-line">
+</i>序列 1（實線）</span>
+<span class="legend-item">
+<i class="legend-line dash">
+</i>理論概率 p</span>
+</div>
+</div>
+<div class="metrics" aria-label="序列一的數值">
+<div class="metric">
+<span class="metric-label">試驗次數 n</span>
+<strong id="trials">0</strong>
+</div>
+<div class="metric">
+<span class="metric-label">正面相對頻率</span>
+<strong id="proportion">—</strong>
+</div>
+<div class="metric">
+<span class="metric-label">與 p 的絕對差</span>
+<strong id="error">—</strong>
+</div>
+</div>
+<p class="plot-note">水平刻度隨 n 改變，縱軸固定在 0 至 1；多條路徑以不同線型區分。大量試驗時只抽樣繪圖，統計仍使用全部試驗。</p>
+<details>
+<summary>比較所有序列的數值</summary>
+<table>
+<caption>正面次數偏差 = 正面次數 − n × p（可正可負）</caption>
+<thead>
+<tr>
+<th scope="col">序列</th>
+<th scope="col">正面次數</th>
+<th scope="col">相對頻率</th>
+<th scope="col">次數偏差</th>
+</tr>
+</thead>
+<tbody id="path-values">
+</tbody>
+</table>
+</details>
+<div class="callout">
+<p>模擬可提供觀察，不能代替證明。樣本較大並不保證每一步都更接近 p，亦不會「迫使」下一次補回偏差。</p>
+</div>
+</section>
+</div>
+<section class="notebook" aria-labelledby="notebook-title">
+<div class="notebook-heading">
+<div>
+<div class="step-label">03 / 記錄證據</div>
+<h2 id="notebook-title">把比較留下來。</h2>
+<p>筆記跨任務保留；最多 8 筆。<span id="record-count">0 / 8</span>
+</p>
+</div>
+<button id="record" class="primary" type="button">記錄目前結果</button>
+</div>
+<ol class="record-list" id="record-list">
+</ol>
+<div class="reflection-grid">
+<div>
+<div class="step-label">04 / 解釋與修正</div>
+<h3>現在，你會怎樣解釋？</h3>
+<p class="question-label">引用至少兩筆紀錄，說明它們支持甚麼；也可以修正原來的猜想。</p>
+<label class="field-label" for="explanation">我的解釋</label>
+<textarea id="explanation" maxlength="4000" placeholder="我比較了……與……，因此我認為……">
+</textarea>
+<p class="print-text" data-print="explanation">
+</p>
+</div>
+<div>
+<div class="step-label">05 / 離堂題</div>
+<h3>離開圖像，再想一步。</h3>
+<p class="question-label" id="exit-question">「擲 1,000 次，正面一定比擲 100 次更接近 50%。」這句話有甚麼問題？請分清一般趨勢與必然結果。</p>
+<label class="field-label" for="exit-answer">我的回答</label>
+<textarea id="exit-answer" maxlength="4000" placeholder="請寫出理由，而不只是答案。">
+</textarea>
+<p class="print-text" data-print="exit-answer">
+</p>
+</div>
+</div>
+<div class="save-panel">
+<div>
+<label class="check-line">
+<input id="remember" type="checkbox">在此瀏覽器記住本活動（共用電腦勿勾選）</label>
+<p class="hint" id="storage-status">預設只留在本頁，關閉後不保留。請先匯出重要筆記。</p>
+<p class="hint">不需姓名。匯出檔案由你自行保管或提交，網站不會自動收集。</p>
+</div>
+<div class="save-actions">
+<button type="button" id="export-text">匯出文字</button>
+<button type="button" id="export-json">匯出 JSON</button>
+<button type="button" id="print">列印筆記</button>
+<button type="button" id="clear-notes" class="text-button">清除筆記</button>
+</div>
+</div>
+</section>
+<p role="status" aria-live="polite" id="status" class="status">
+</p>
+</main>
+<script type="module" src="../assets/probability.mjs">
+</script>
+<footer>
+<div class="wrap footer-inner">
+<div>程淑鍵 · Kenneth Cheng<br>
+<a href="https://skckenneth.github.io/">個人網誌 ↗</a>
+</div>
+<div>教學原型 v0.1 · 尚未經課堂試用<br>無帳戶 · 無筆記上傳 · 共用電腦請勿儲存筆記</div>
+</div>
+</footer>
+</body>
+</html>
