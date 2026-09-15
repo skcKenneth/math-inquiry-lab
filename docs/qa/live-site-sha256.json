@@ -1,0 +1,100 @@
+[
+  {
+    "path": ".nojekyll",
+    "status": 200,
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "pass": true
+  },
+  {
+    "path": "about.html",
+    "status": 200,
+    "bytes": 3213,
+    "sha256": "3fac16d8e14e262c5c5fe30fd05c864ccd61c29e3e16c6c665e1501b780ebf89",
+    "pass": true
+  },
+  {
+    "path": "index.html",
+    "status": 200,
+    "bytes": 3654,
+    "sha256": "449625f282a8e6ae94967af32e5ceceb78826366a0e0d38e270c236c6c898aff",
+    "pass": true
+  },
+  {
+    "path": "teacher-guide.html",
+    "status": 200,
+    "bytes": 10148,
+    "sha256": "d214618fbd51fbc63db46278ed11644f1dd00083d0648d5ad74ce7d05a24bfd2",
+    "pass": true
+  },
+  {
+    "path": "assets/favicon.svg",
+    "status": 200,
+    "bytes": 251,
+    "sha256": "efd38362a4dd631657e7f172da891afe79ec42c0441310041bf29e31d00e30e1",
+    "pass": true
+  },
+  {
+    "path": "assets/math.mjs",
+    "status": 200,
+    "bytes": 2804,
+    "sha256": "f2f621b48af299c1d9a6585b7a040781ed2a569874e892813eb967e18d78f66f",
+    "pass": true
+  },
+  {
+    "path": "assets/probability.mjs",
+    "status": 200,
+    "bytes": 3521,
+    "sha256": "a048cd1db3cacea96d910297c47068a6e724d6c5f24903c7606db0187770b456",
+    "pass": true
+  },
+  {
+    "path": "assets/quadratic.mjs",
+    "status": 200,
+    "bytes": 2716,
+    "sha256": "c0e75cdcd822cd559da0463dbe8ee92618e655e2f926240380054badc48375db",
+    "pass": true
+  },
+  {
+    "path": "assets/regression.mjs",
+    "status": 200,
+    "bytes": 4504,
+    "sha256": "0916d73d29c10c7d5abe958b19f1a973dc06697c444b55001f078896f90f9cab",
+    "pass": true
+  },
+  {
+    "path": "assets/site.css",
+    "status": 200,
+    "bytes": 15950,
+    "sha256": "36937050436f28d92b196b3d825ac238736c26e6acd30ac97109988914541026",
+    "pass": true
+  },
+  {
+    "path": "assets/ui.mjs",
+    "status": 200,
+    "bytes": 9247,
+    "sha256": "f7fa64c03397a461339a449c903ce83948e90366cef0f33e0619cdf2718e15cc",
+    "pass": true
+  },
+  {
+    "path": "labs/probability.html",
+    "status": 200,
+    "bytes": 9432,
+    "sha256": "c00556a10dafeb9241e935e16cb1278048e0708887d97f898f7e64e3dc099993",
+    "pass": true
+  },
+  {
+    "path": "labs/quadratic.html",
+    "status": 200,
+    "bytes": 9050,
+    "sha256": "d3dbcfe38d4ff4629c79e8d9579180ee82473f9a8eaccd2092cfe224200c3cc6",
+    "pass": true
+  },
+  {
+    "path": "labs/regression.html",
+    "status": 200,
+    "bytes": 9515,
+    "sha256": "9cb8578f347feba8aca7477d08c1a964df8cdfa83451f2d336935f70bbd3a321",
+    "pass": true
+  }
+]

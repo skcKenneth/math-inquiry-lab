@@ -1,10 +1,16 @@
 # 接手驗證報告｜2026-09-15
 
-狀態：`LOCAL_REAL_BROWSER_VERIFIED / DEPLOYMENT_IN_PROGRESS`。
+狀態：`LOCAL_AND_LIVE_VERIFIED / PAGES_DEPLOYED / CLASSROOM_TRIAL_PENDING`。
 
-本機數學、HTTP 及完整 Chromium 測試已通過。Windows 既有 Git 憑證已驗證為
-skcKenneth，目標名稱已確認未使用；正在進行獨立 repository 發布。正式網址與
-Actions 結果必須待實際部署及 live 驗收後更新。頁面仍明示「尚未經課堂試用」。
+本機與正式 Pages 的 HTTP 及完整 Chromium 測試已通過，GitHub Actions verify 和
+deploy 均成功。獨立 public repository 已建立；原網誌沒有被修改。
+
+- 正式網站：<https://skckenneth.github.io/math-inquiry-lab/>
+- Repository：<https://github.com/skcKenneth/math-inquiry-lab>
+- 首次部署 workflow：<https://github.com/skcKenneth/math-inquiry-lab/actions/runs/34971577603>
+- 該次發布程式提交：`c2f8aeeb783794fa8d21bf2c924c74062157f3af`。
+- 本報告後續提交只新增驗收文件，`site/` bytes 與上述發布完全相同。
+- 公開頁面仍保留「尚未經課堂試用」。
 
 ## 本次真正執行的測試
 
@@ -56,12 +62,27 @@ Chromium 143.0.7499.4（Playwright build 1200）。Production `site/` 為 14 檔
 第 8 項 browser test 注入剪貼簿拒絕以驗證 fallback，不能證明 OS 權限提示；
 第 10 項另以真正的瀏覽器 clipboard 核對成功路徑。其他導航、儲存、下載均無替身。
 
+## 正式網站驗收
+
+- `BASE_URL=https://skckenneth.github.io/math-inquiry-lab/` 執行完整同一套 Chromium
+  測試：13/13 PASS、0 skip，31.957 秒；其中 1 項是明示剪貼簿拒絕故障注入。
+- 公開 HTTP 14/14 PASS，包含目錄首頁、三活動、教師手冊、關於及所有 runtime 資源。
+- 14 個公開檔案逐一比對 SHA-256，全部與本機 `site/` 相同。
+- 真實瀏覽器逐頁導航、重新整理、ES modules 執行、手機寬度、分享參數深連結、
+  本機儲存、文字／JSON 下載、clipboard 及 PDF 均在公開 HTTPS 網址重測。
+- 另外在 Codex 瀏覽器打開正式首頁、三活動及教師手冊，三活動可刷新並操作。
+- Pages publishing source 為 `workflow`，public=true，https_enforced=true，cname=null。
+  Workflow 只發布 `site/`；沒有建立 CNAME、登入、資料庫或資料收集服務。
+- 證據：`docs/qa/live-browser.txt`、`live-http-routes.txt`、`live-site-sha256.json`；
+  正式站截圖、測試匯出及 PDF 在 `.artifacts/live-browser-qa/`，不納入發布。
+
 ## 尚未完成與權限
 
-1. **登入能力已解決**：CLI 沒有獨立登入，但 Windows 原有 Git 憑證在沙箱外可用；
-   已驗證帳戶為 skcKenneth，無須使用者另行登入。未輸出／保存 token。
-2. **遠端存在性已確認**：以登入身分查詢，math-inquiry-lab 不存在；可按授權建立。
-3. **Actions／Pages／live 驗收**：正在部署，待 workflow 完成及實際網址核對。
+1. **權限**：目前沒有待使用者提供的部署權限。已使用 Windows 原有 Git Credential
+   Manager 登入，沒有輸出／保存 token；使用者不需再次執行登入指令。
+2. **遠端安全檢查**：先以登入身分確認目標名稱未使用，再建立全新 repository，
+   非覆寫既有工作。本機只連接 math-inquiry-lab 的 origin。
+3. **部署**：首次 Actions、Pages 及正式網址驗收全部完成，證據見上。
 4. **裝置與無障礙**：實體手機／平板、觸控多指、手機軟鍵盤、Safari／Firefox、
    完整螢幕閱讀器、200% 縮放及正式無障礙稽核未驗證。沒有合規認證聲稱。
 5. **列印及權限 UI**：已產生並核對 Chromium PDF；實體紙張列印、原生列印對話框

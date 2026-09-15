@@ -4,8 +4,10 @@
 
 建議新 repository：`skcKenneth/math-inquiry-lab`。
 原有 `skcKenneth/skcKenneth.github.io` 不改動、不遷移、不重建、不刪除。
-預期 project URL 為 `https://skckenneth.github.io/math-inquiry-lab/`，但仍須以 Pages
-實際回傳網址及 live check 為準；目前包內沒有聲稱它已上線。
+已由 Pages 回傳並完成 live 驗收的 project URL：
+[https://skckenneth.github.io/math-inquiry-lab/](https://skckenneth.github.io/math-inquiry-lab/)。
+首次 workflow：<https://github.com/skcKenneth/math-inquiry-lab/actions/runs/34971577603>。
+完整結果見 `TEST_REPORT.md`。
 
 所有內部連結均用相對路徑。沒有 CNAME，不更動自訂網域或 blog routing。
 

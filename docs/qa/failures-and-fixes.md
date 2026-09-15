@@ -53,3 +53,5 @@ Playwright 1.57.0 安裝在專案 `.venv/`。預設瀏覽器快取安裝沒有�
 再以正常 Windows 使用者執行非互動 Git Credential Manager，成功使用既有憑證
 驗證為 skcKenneth。這是環境邊界造成的存取差異，並非需要重建登入；沒有輸出或
 保存 token。登入後已核對目標 repository 不存在，再按使用者授權建立及發布。
+
+發布已完成；正式 HTTPS 網址 13 項瀏覽器、14 HTTP 及 14 檔雜湊比對均通過。

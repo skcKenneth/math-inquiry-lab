@@ -1,7 +1,7 @@
 {
   "version": "0.1.0",
   "verified_date": "2026-09-15",
-  "status": "LOCAL_REAL_BROWSER_VERIFIED_DEPLOYMENT_IN_PROGRESS",
+  "status": "LOCAL_AND_LIVE_VERIFIED_PAGES_DEPLOYED_CLASSROOM_TRIAL_PENDING",
   "runtime_dependencies": 0,
   "production_files": 14,
   "production_bytes": 84005,
@@ -28,9 +28,17 @@
   },
   "historical_mock_suite": "12 passes from starter; not rerun; not deployment evidence",
   "repository_target": "skcKenneth/math-inquiry-lab",
-  "repository_creation": "AUTHENTICATED_ABSENCE_CONFIRMED",
-  "github_deployment": "PENDING",
-  "live_url": null,
-  "workflow_url": null,
-  "classroom_trial": "NOT_CONDUCTED"
+  "repository_creation": "NEW_PUBLIC_REPOSITORY_CREATED_AFTER_AUTHENTICATED_ABSENCE_CHECK",
+  "github_deployment": "SUCCESS",
+  "live_url": "https://skckenneth.github.io/math-inquiry-lab/",
+  "workflow_url": "https://github.com/skcKenneth/math-inquiry-lab/actions/runs/34971577603",
+  "classroom_trial": "NOT_CONDUCTED",
+  "verified_site_source_commit": "c2f8aeeb783794fa8d21bf2c924c74062157f3af",
+  "live_verification": {
+    "browser_tests_passed": 13,
+    "browser_fault_injection_cases": 1,
+    "http_routes_passed": 14,
+    "asset_hashes_matched": 14,
+    "physical_mobile_device": "NOT_TESTED"
+  }
 }

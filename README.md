@@ -5,15 +5,18 @@
 **不是只有設計稿：`site/` 已含可操作的三個活動、學生筆記及教師手冊。**
 目前版本 `0.1.0` 尚未在真實課堂試用。2026-09-15 已接手核對並修正數學題目與操作；
 本機已完成真實 Chromium 導航，完整結果見 `docs/TEST_REPORT.md`。
-本機已通過 28 項數學、14 條 HTTP、13 項瀏覽器測試；正在準備獨立 repository 部署。
+已建立獨立 public repository 並部署；本機及正式網址的 13 項瀏覽器測試均通過，
+另通過 28 項數學、14 條 HTTP 及 14 檔 SHA-256 核對。
 
 ## 你只需要先做甚麼
 
 本專案已在獨立資料夾接手，原始 ZIP 保持完整，Git 第一個提交保存原始 41 個檔案。
 後續工作依 `prompts/START_CODEX_ZH.md` 進行。不要放入或覆蓋個人網誌 repository。
 
-目標專案名稱：`math-inquiry-lab`。預定網址（不是已上線連結）：
-`https://skckenneth.github.io/math-inquiry-lab/`。
+正式網站：[數學探究室](https://skckenneth.github.io/math-inquiry-lab/)。
+獨立 repository：[skcKenneth/math-inquiry-lab](https://github.com/skcKenneth/math-inquiry-lab)。
+首次部署及完整 live 驗收所對應的
+[成功 workflow](https://github.com/skcKenneth/math-inquiry-lab/actions/runs/34971577603)。
 
 ## 本機試用：不用安裝 npm 套件
 

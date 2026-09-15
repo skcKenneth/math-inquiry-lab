@@ -1,0 +1,21 @@
+
+Real Chromium 143.0.7499.4; base=https://skckenneth.github.io/math-inquiry-lab/; live=True
+Browser artifacts: C:\GitHub Projects\math-inquiry-lab\.artifacts\live-browser-qa
+test_01_http_routes_root_and_project (__main__.BrowserSmoke.test_01_http_routes_root_and_project) ... ok
+test_02_quadratic (__main__.BrowserSmoke.test_02_quadratic) ... ok
+test_03_real_storage_reload_opt_in (__main__.BrowserSmoke.test_03_real_storage_reload_opt_in) ... ok
+test_04_real_json_and_text_downloads (__main__.BrowserSmoke.test_04_real_json_and_text_downloads) ... ok
+test_05_probability_reproducibility_and_boundaries (__main__.BrowserSmoke.test_05_probability_reproducibility_and_boundaries) ... ok
+test_06_regression_drag_and_keyboard_alternative (__main__.BrowserSmoke.test_06_regression_drag_and_keyboard_alternative) ... ok
+test_07_all_pages_three_viewports (__main__.BrowserSmoke.test_07_all_pages_three_viewports) ... ok
+test_08_simulated_clipboard_denial_fallback_no_private_text (__main__.BrowserSmoke.test_08_simulated_clipboard_denial_fallback_no_private_text) ... ok
+test_09_projection_levels_and_real_print_pdfs (__main__.BrowserSmoke.test_09_projection_levels_and_real_print_pdfs) ... ok
+test_10_real_clipboard_and_parameter_roundtrips (__main__.BrowserSmoke.test_10_real_clipboard_and_parameter_roundtrips) ... ok
+test_11_invalid_number_recovers_and_decimal_typing (__main__.BrowserSmoke.test_11_invalid_number_recovers_and_decimal_typing) ... ok
+test_12_mobile_chart_visible_while_adjusting_numbers (__main__.BrowserSmoke.test_12_mobile_chart_visible_while_adjusting_numbers) ... ok
+test_13_record_limit_and_clear_only_this_lab (__main__.BrowserSmoke.test_13_record_limit_and_clear_only_this_lab) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 31.957s
+
+OK
