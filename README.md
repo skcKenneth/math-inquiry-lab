@@ -3,6 +3,12 @@
 程淑鍵（Kenneth Cheng）的極簡中學數學互動探究原型。
 
 **不是只有設計稿：`site/` 已含可操作的三個活動、學生筆記及教師手冊。**
+2026-10-13 相容更新加入完整繁體中文／英文介面、跨分頁安全儲存，以及連往
+[統一數學教學工作區](https://skckenneth.github.io/zh/teaching/math/)的入口。
+舊活動網址、`math-inquiry-lab:v1:<lab>` 儲存鍵及自願保存方式保留；開啟舊紀錄不會改寫內容。
+此批更新的驗收與發布狀態見 [整合驗收紀錄](docs/INTEGRATION_20261013.md)。
+
+以下 2026-09-15 的正式部署結果屬於之前版本，並非本批更新的發布證據。
 目前版本 `0.1.0` 尚未在真實課堂試用。2026-09-15 已接手核對並修正數學題目與操作；
 本機已完成真實 Chromium 導航，完整結果見 `docs/TEST_REPORT.md`。
 已建立獨立 public repository 並部署；本機及正式網址的 13 項瀏覽器測試均通過，
@@ -11,7 +17,8 @@
 ## 你只需要先做甚麼
 
 本專案已在獨立資料夾接手，原始 ZIP 保持完整，Git 第一個提交保存原始 41 個檔案。
-後續工作依 `prompts/START_CODEX_ZH.md` 進行。不要放入或覆蓋個人網誌 repository。
+原始版本的獨立交付流程見 `prompts/START_CODEX_ZH.md`。2026-10-13 按使用者授權整合
+教學入口；兩個 repository 仍各自發布，本專案只發布 `site/`。
 
 正式網站：[數學探究室](https://skckenneth.github.io/math-inquiry-lab/)。
 獨立 repository：[skcKenneth/math-inquiry-lab](https://github.com/skcKenneth/math-inquiry-lab)。
@@ -90,7 +97,7 @@ $env:BROWSER_ARTIFACT_DIR = "$PWD\.artifacts\browser-qa"
 
 ## 調整內容
 
-- 文字及任務：直接修改 `site/labs/*.html`，保持繁體中文及現有結構。
+- 文字及任務：修改 `site/labs/*.html` 時，同時維護 `site/assets/translations.mjs` 的英文內容。
 - 配色、間距、字體：`site/assets/site.css` 最頂部的 CSS 變量。
 - 純數學：`site/assets/math.mjs`；改動後必須補測試。
 - 三個活動行為：相應名稱的 `.mjs`。

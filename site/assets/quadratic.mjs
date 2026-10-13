@@ -1,5 +1,5 @@
 import {clampFinite, quadratic, quadraticFacts, fmt} from './math.mjs';
-import {$,bindPair,setPair,initLevel,initShell,initNotebook,plotFrame,sampleCurve,esc,say} from './ui.mjs';
+import {$,bindPair,setPair,initLevel,initShell,initNotebook,plotFrame,sampleCurve,esc,say} from './ui.mjs?v=math-system-2';
 const params=new URL(location.href).searchParams;
 const quant=(key,fallback,min,max,step)=>Math.round(clampFinite(params.get(key),fallback,min,max)/step)*step;
 const state={a:quant('a',1,-3,3,.25),h:quant('h',0,-4,4,.5),k:quant('k',0,-4,4,.5)};

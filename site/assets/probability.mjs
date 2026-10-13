@@ -1,5 +1,5 @@
 import {clampFinite,bernoulli,fmt} from './math.mjs';
-import {$,$$,bindPair,setPair,initLevel,initShell,initNotebook,plotFrame,esc,say} from './ui.mjs';
+import {$,$$,bindPair,setPair,initLevel,initShell,initNotebook,plotFrame,esc,say} from './ui.mjs?v=math-system-2';
 const params=new URL(location.href).searchParams;
 const state={p:Math.round(clampFinite(params.get('p'),.5,0,1)*20)/20,seed:Math.round(clampFinite(params.get('seed'),2026,0,999999)),n:Math.floor(clampFinite(params.get('n'),0,0,20000)),paths:Math.floor(clampFinite(params.get('paths'),1,1,4))};
 let results=[];

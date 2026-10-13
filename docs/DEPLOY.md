@@ -1,5 +1,16 @@
 # GitHub Pages 部署
 
+## 2026-10-13 相容整合
+
+按使用者本次授權，舊 Project Pages 與個人網站的統一數學教學工作區共同提供同一批
+活動。舊網址繼續運作，橫幅按活動及語言連往 `/teaching/math/` 或
+`/zh/teaching/math/`。本專案使用相對資源路徑及本地 `assets/storage.js`，仍無 CDN
+或 runtime 套件。原有筆記儲存鍵不遷移；只有使用者勾選後才保存。
+
+兩個 repository 分別通過驗收及 Pages workflow 後才可宣稱本批正式發布。
+下方「獨立 project site」記錄的是原始建立時的範圍，不能覆蓋本次已授權的整合。
+本批狀態見 [INTEGRATION_20261013.md](INTEGRATION_20261013.md)。
+
 ## 決策：獨立 project site，不碰原網誌
 
 建議新 repository：`skcKenneth/math-inquiry-lab`。

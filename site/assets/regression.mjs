@@ -1,5 +1,5 @@
 import {clampFinite,ols,leverage,BASE_POINTS,fmt} from './math.mjs';
-import {$,$$,bindPair,setPair,initLevel,initShell,initNotebook,plotFrame,esc,say} from './ui.mjs';
+import {$,$$,bindPair,setPair,initLevel,initShell,initNotebook,plotFrame,esc,say} from './ui.mjs?v=math-system-2';
 const params=new URL(location.href).searchParams;
 const state={rx:Math.round(clampFinite(params.get('rx'),4.5,0,12)*4)/4,ry:Math.round(clampFinite(params.get('ry'),6,0,16)*4)/4,included:params.get('included')!=='false'};
 const baseline=ols(BASE_POINTS);let fit=baseline,frame,dragPointer=null;

@@ -165,15 +165,24 @@ class BrowserSmoke(unittest.TestCase):
         note = '測試筆記，不是真實學生資料'
         self.page.locator('#prediction').fill(note)
         self.assertEqual(self.page.evaluate('localStorage.length'), 0)
+        self.page.evaluate("localStorage.setItem('unrelated-app:test', 'retain')")
         self.page.locator('#remember').check()
         self.page.locator('#record').click()
+        self.page.wait_for_function("JSON.parse(localStorage.getItem('math-inquiry-lab:v1:quadratic') || 'null')?.records.length === 1")
         self.page.reload()
         self.ready()
         self.assertEqual(self.page.locator('#prediction').input_value(), note)
         self.assertTrue(self.page.locator('#remember').is_checked())
         self.assertEqual(self.page.locator('#record-count').inner_text(), '1 / 8')
         self.page.locator('#remember').uncheck()
-        self.assertEqual(self.page.evaluate('localStorage.length'), 0)
+        # Coordination metadata contains no learner text and must remain to
+        # detect stale writers. Require deletion of all actual notebook copies.
+        self.page.wait_for_function("localStorage.getItem('math-inquiry-lab:v1:quadratic') === null && !Object.keys(localStorage).some(k => k.startsWith('math-learning-sync-v1:recovery:math-inquiry-quadratic:'))")
+        remaining = self.page.evaluate('Object.fromEntries(Object.entries(localStorage))')
+        self.assertNotIn('math-inquiry-lab:v1:quadratic', remaining)
+        self.assertFalse(any(key.startswith('math-learning-sync-v1:recovery:math-inquiry-quadratic:') for key in remaining))
+        self.assertEqual(remaining['unrelated-app:test'], 'retain')
+        self.assertNotIn(note, json.dumps(remaining, ensure_ascii=False))
         self.assertEqual(self.page.locator('#prediction').input_value(), note)
         self.page.reload()
         self.ready()
@@ -433,6 +442,7 @@ class BrowserSmoke(unittest.TestCase):
         self.page.locator('#remember').check()
         self.page.locator('[data-add="10"]').click()
         self.page.locator('#record').click()
+        self.page.wait_for_function("JSON.parse(localStorage.getItem('math-inquiry-lab:v1:probability') || 'null')?.records.length === 1")
         probability = self.page.evaluate("localStorage.getItem('math-inquiry-lab:v1:probability')")
         # Real storage sentinel; this does not replace the browser implementation.
         self.page.evaluate("localStorage.setItem('unrelated-app:test', 'retain')")
@@ -448,6 +458,7 @@ class BrowserSmoke(unittest.TestCase):
         self.page.locator('#record').click()
         self.page.once('dialog', lambda dialog: dialog.accept())
         self.page.locator('#clear-notes').click()
+        self.page.wait_for_function("localStorage.getItem('math-inquiry-lab:v1:quadratic') === null")
         self.assertEqual(self.page.locator('#record-count').inner_text(), '0 / 8')
         self.assertEqual(self.page.locator('#prediction').input_value(), '')
         self.assertFalse(self.page.locator('#remember').is_checked())
@@ -457,6 +468,89 @@ class BrowserSmoke(unittest.TestCase):
         self.open('probability')
         self.assertEqual(self.page.locator('#prediction').input_value(), '另一活動的測試筆記')
         self.assertEqual(self.page.locator('#record-count').inner_text(), '1 / 8')
+
+    def test_14_complete_english_and_canonical_workspace_links(self):
+        # The historical project path keeps the same activities and local notes.
+        for name in PAGES:
+            with self.subTest(page=name):
+                self.assertEqual(self.page.goto(BASE + name + '?lang=en').status, 200)
+                self.page.wait_for_function("typeof MathInquiryI18n !== 'undefined' && document.querySelector('[data-canonical-workspace]')")
+                self.assertEqual(self.page.locator('html').get_attribute('lang'), 'en')
+                self.assertEqual(self.page.evaluate('MathInquiryI18n.untranslated()'), [])
+                destination = urlsplit(self.page.locator('[data-canonical-workspace]').get_attribute('href'))
+                self.assertEqual(destination.netloc, 'skckenneth.github.io')
+                self.assertEqual(destination.path, '/teaching/math/')
+                if name.startswith('labs/'):
+                    lab = Path(name).stem
+                    self.ready()
+                    self.assertEqual(parse_qs(destination.query)['activity'], ['lab:' + lab])
+                    self.page.locator('#prediction').fill('QA 中文學生原文')
+                    if lab == 'probability':
+                        self.page.locator('[data-add="10"]').click()
+                    self.page.locator('#record').click()
+                    self.page.wait_for_timeout(30)
+                    self.assertEqual(self.page.evaluate('MathInquiryI18n.untranslated()'), [])
+                    text = self.save_download('#export-text', lab + '-learning-record.txt')
+                    self.assertIn('QA 中文學生原文', text)
+                    self.assertNotRegex(text.replace('QA 中文學生原文', ''), r'[\u3400-\u9fff]')
+                else:
+                    self.assertEqual(destination.query, '')
+                # Relative navigation retains the requested language on Project Pages.
+                self.assertIn('lang=en', self.page.locator('.brand').get_attribute('href'))
+        self.assertEqual(self.page.goto(BASE + 'labs/quadratic.html?lang=zh-Hant').status, 200)
+        self.page.wait_for_selector('[data-canonical-workspace]')
+        destination = urlsplit(self.page.locator('[data-canonical-workspace]').get_attribute('href'))
+        self.assertEqual(destination.path, '/zh/teaching/math/')
+        self.assertEqual(parse_qs(destination.query)['activity'], ['lab:quadratic'])
+
+    def test_15_native_tabs_preserve_old_records_and_merge_changes(self):
+        self.open('quadratic')
+        legacy = {'schema': 1, 'version': '0.1', 'lab': 'quadratic',
+                  'title': '二次函數', 'level': '核心', 'consent': True,
+                  'answers': {'prediction': '原有預測', 'explanation': '', 'exit-answer': ''},
+                  'records': [{'level': '核心', 'summary': '原有觀察', 'detail': '保留原文'},
+                              {'level': '核心', 'summary': '原有觀察', 'detail': '保留原文'}],
+                  'unknownFutureField': {'keep': True}}
+        raw = json.dumps(legacy, ensure_ascii=False)
+        self.page.evaluate("raw => localStorage.setItem('math-inquiry-lab:v1:quadratic', raw)", raw)
+        self.page.reload()
+        self.ready()
+        other = self.ctx.new_page()
+        other.on('pageerror', lambda error: self.errors.append(str(error)))
+        self.assertEqual(other.goto(BASE + 'labs/quadratic.html').status, 200)
+        other.wait_for_function("document.querySelector('#record-count')?.textContent === '2 / 8'")
+        self.assertEqual(self.page.evaluate("localStorage.getItem('math-inquiry-lab:v1:quadratic')"), raw,
+                         'Opening old records must not rewrite them')
+        other.locator('#prediction').focus()
+        self.page.locator('#prediction').fill('QA 遠端更新預測')
+        other.wait_for_function("document.querySelector('#prediction').value === 'QA 遠端更新預測'")
+        other.locator('#explanation').fill('QA 另一分頁解釋')
+        self.page.wait_for_function("JSON.parse(localStorage.getItem('math-inquiry-lab:v1:quadratic')).answers.explanation === 'QA 另一分頁解釋'")
+        saved = self.page.evaluate("JSON.parse(localStorage.getItem('math-inquiry-lab:v1:quadratic'))")
+        self.assertEqual(saved['answers']['prediction'], 'QA 遠端更新預測')
+        self.assertEqual(saved['records'], legacy['records'])
+        self.assertEqual(saved['unknownFutureField'], {'keep': True})
+        self.page.locator('#record').click()
+        other.wait_for_function("document.querySelector('#record-count').textContent === '3 / 8'")
+        # Delete one identified event while the second tab appends a new event.
+        self.page.locator('.remove-record').click()
+        other.locator('#record').click()
+        self.page.wait_for_function("JSON.parse(localStorage.getItem('math-inquiry-lab:v1:quadratic')).records.length === 3")
+        other.reload()
+        other.wait_for_function("document.querySelector('#record-count')?.textContent === '3 / 8'")
+        saved = other.evaluate("JSON.parse(localStorage.getItem('math-inquiry-lab:v1:quadratic'))")
+        self.assertEqual(saved['records'][:2], legacy['records'], 'Duplicate legacy rows stay verbatim')
+        self.assertEqual(sum(bool(row.get('eventId')) for row in saved['records']), 1)
+        self.assertEqual(other.locator('#prediction').input_value(), 'QA 遠端更新預測')
+        self.assertEqual(other.locator('#explanation').input_value(), 'QA 另一分頁解釋')
+        self.page.locator('#remember').uncheck()
+        other.wait_for_function("!document.querySelector('#remember').checked")
+        self.assertEqual(other.locator('#prediction').input_value(), 'QA 遠端更新預測')
+        other.locator('#explanation').fill('QA 只留在這次瀏覽的解釋')
+        self.page.wait_for_function("localStorage.getItem('math-inquiry-lab:v1:quadratic') === null && !Object.keys(localStorage).some(k => k.startsWith('math-learning-sync-v1:recovery:math-inquiry-quadratic:'))")
+        self.assertIsNone(other.evaluate("localStorage.getItem('math-inquiry-lab:v1:quadratic')"))
+        self.assertFalse(other.locator('#remember').is_checked())
+        other.close()
 
 
 if __name__ == '__main__':

@@ -1,0 +1,5 @@
+.canonical-workspace{display:flex;align-items:center;flex-wrap:wrap;gap:.45rem 1rem;margin-block:1rem;padding-block:.85rem;border-block:1px solid var(--line,#c8cdc5);font-size:.875rem;line-height:1.6}
+.canonical-workspace strong{font-size:.95rem}
+.canonical-workspace span{flex:1 1 25rem}
+.canonical-workspace a{font-weight:600;white-space:nowrap}
+@media print{.canonical-workspace{display:none}}
