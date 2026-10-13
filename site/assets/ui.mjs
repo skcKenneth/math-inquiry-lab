@@ -63,6 +63,7 @@ export function initNotebook(lab,title,getSnapshot) {
   box.checked=false;
   const collect=()=>({schema:1,version:VERSION,lab,title,level:levelName(),
     answers:Object.fromEntries(fields.map(id=>[id,$(`#${id}`).value])),records});
+  globalThis.MathInquiryNotebookSnapshot=()=>({...collect(),consent:box.checked});
   const printMirror=()=>fields.forEach(id=>$(`[data-print="${id}"]`).textContent=$(`#${id}`).value || t('（尚未填寫）'));
   try{store=globalThis.MathStorage?.createStore({namespace:'math-inquiry-'+lab,storage:localStorage,recovery:false,defaults:{[key]:{schema:1,version:VERSION,lab,title,level:'核心',answers:{prediction:'',explanation:'','exit-answer':''},records:[],consent:false}},decode(_key,raw){const value=JSON.parse(raw);if(!value||value.schema!==1||value.lab!==lab||value.consent!==true||!value.answers||!Array.isArray(value.records))throw Error('Unreadable notebook');return value;}});}catch{}
   function conflictPanel(){
@@ -91,18 +92,23 @@ export function initNotebook(lab,title,getSnapshot) {
     if(current.consent!==true)store.edit({key,path:['consent'],kind:'set',base:current.consent??false,defaultValue:false,value:true});
     saving=false;void store.flush().then(showState);
   };
-  async function removeRecoveryCopies(){
+  function recoveryCopies(){
+    const prefix='math-learning-sync-v1:recovery:'+store.namespace+':',copies=[];
+    for(let i=0;i<localStorage.length;i++){const entry=localStorage.key(i);if(entry?.startsWith(prefix))copies.push([entry,localStorage.getItem(entry)]);}
+    return copies;
+  }
+  async function removeRecoveryCopies(captured){
     // Revocation covers older writers of this lab too. The metadata stamp has
     // no learner text and remains to detect a stale, uncoordinated writer.
     return navigator.locks.request('math-learning:writer:v1',()=>{
       if(localStorage.getItem(key)!==null)return false;
-      const prefix='math-learning-sync-v1:recovery:'+store.namespace+':';
-      const selected=[];for(let i=0;i<localStorage.length;i++){const entry=localStorage.key(i);if(entry?.startsWith(prefix))selected.push(entry);}
-      for(const entry of selected)localStorage.removeItem(entry);
+      // A later explicit opt-in may have a new pending checkpoint before its
+      // canonical write. Never delete a newly created or changed recovery.
+      for(const [entry,raw] of captured)if(localStorage.getItem(entry)===raw)localStorage.removeItem(entry);
       return true;
     });
   }
-  const removeLocal=()=>{if(!store){status.textContent='本頁筆記仍保留；未能更改瀏覽器副本。';return;}store.setRecoveryEnabled(false);store.edit({key,path:[],kind:'remove-key',base:store.snapshot()[key]});void store.flush().then(async result=>{let removed=false;if(result.ok)try{removed=await removeRecoveryCopies();}catch{}status.textContent=removed?'已移除此活動的本機副本；本頁筆記仍保留。':'未能移除儲存副本，請先匯出及檢查瀏覽器設定。';});};
+  const removeLocal=()=>{if(!store){status.textContent='本頁筆記仍保留；未能更改瀏覽器副本。';return;}let captured;try{captured=recoveryCopies();}catch{status.textContent='未能移除儲存副本，請先匯出及檢查瀏覽器設定。';return;}store.setRecoveryEnabled(false);store.edit({key,path:[],kind:'remove-key',base:store.snapshot()[key]});void store.flush().then(async result=>{let removed=false;if(result.ok)try{removed=await removeRecoveryCopies(captured);}catch{}status.textContent=removed?'已移除此活動的本機副本；本頁筆記仍保留。':'未能移除儲存副本，請先匯出及檢查瀏覽器設定。';});};
   const render=()=>{
     $('#record-list').innerHTML=records.length?records.map((r,i)=>`<li><span class="record-number">${String(i+1).padStart(2,'0')}</span><div><strong>${esc(r.level)} · ${esc(r.summary)}</strong><p>${esc(r.detail)}</p></div>${identified(r)?`<button type="button" class="text-button remove-record" data-index="${i}" aria-label="刪除紀錄 ${i+1}">移除</button>`:`<span class="small">${language==='en'?'Legacy record · retained in backups':'舊有紀錄・保留於備份'}</span>`}</li>`).join(''):'<li class="empty-record">尚未記錄。比較兩個設定後，再解釋你的觀察。</li>';
     $('#record-count').textContent=`${records.length} / 8`;

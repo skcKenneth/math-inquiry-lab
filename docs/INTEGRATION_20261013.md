@@ -15,8 +15,8 @@
 已執行：
 
 - `npm run verify`：28／28 獨立數學測試通過；6 個 HTML、85 個本地連結／錨點、
-  164.7 KiB production assets；沒有外部 runtime assets。
-- 真實 Chromium headless shell 149.0.7827.55：15／15 項通過（18.915 秒，0 skip），包括原有操作、
+  165.2 KiB production assets；沒有外部 runtime assets。
+- 真實 Chromium headless shell 149.0.7827.55：15／15 項通過（最新重跑 16.305 秒，0 skip），包括原有操作、
   390／768／1440px、實際下載與 PDF、剪貼簿、雙語六頁、工作區連結、
   舊紀錄保留與兩分頁合併、取消儲存後跨分頁停止保存、同活動所有舊 recovery 副本刪除。
 - `node scripts/http-check.mjs http://127.0.0.1:4188/math-inquiry-lab/`：19／19 路由及
@@ -27,21 +27,28 @@ Edge／一般 Chromium 在這台電腦的 HTTP 頁面被防毒軟件注入額外
 既有「沒有跨來源 runtime request」驗收。改用已安裝的 Playwright headless shell
 重跑後保留同一斷言並通過，沒有略過或白名單處理這些額外請求。
 
-實際輸出保存在未追蹤的 `.artifacts/r2-compatibility-headless/`。本批尚未提交、
-push 或驗證正式 Pages；之前部署的證據仍見 `TEST_REPORT.md`，不代表本批已發布。
+實際輸出保存在未追蹤的 `.artifacts/r2-compatibility-final/`。本批仍待 push 及
+正式 Pages 驗證；之前部署的證據仍見 `TEST_REPORT.md`，不代表本批已發布。
 尚未經真實課堂試用；程式驗收不是教學成效證據。
 
-取消儲存／清除時，在共同 writer lock 內核對原筆記仍已刪除，再清除此活動各 writer 的
-recovery 副本；若另一分頁已重新明確勾選保存，不能刪除新一輪備份。其他活動及其他 app
+取消儲存／清除前先擷取此活動 recovery 的 key 及原始 bytes；在共同 writer lock 內
+核對原筆記仍已刪除，且 recovery 的 bytes 未改變，才刪除該副本。另一分頁重新明確
+勾選後新建或更新的 pending recovery 亦保留。此項以真實 writer lock 和本機 storage，
+明示注入合成 pending checkpoint 來重現競爭情況，沒有替代 browser storage。
+其他活動及其他 app
 的 key 保留。協調 metadata 只含版本、writer、revision 及 fingerprint，沒有筆記文字；
 它保留作舊 writer 的偵測，因此舊的 `localStorage.length===0` 斷言改為更直接的私隱驗收：
 原 key 不存在、此活動沒有任何 recovery 副本、剩餘儲存沒有測試筆記，且 unrelated app
 sentinel 保持原值。初次未勾選前仍驗收完全沒有儲存寫入。
 
+未勾選的頁面草稿亦可透過統一工作區的完整備份保存為明確標示的 session variant；
+`MathInquiryNotebookSnapshot()` 僅讀取目前頁面文字、紀錄及 consent，不會自行儲存或
+改變 checkbox。瀏覽器測試核對此 getter 能讀到未保存文字且保持 `consent:false`。
+
 重跑命令（使用已安裝、沒有防毒 script 注入的 headless shell）：
 
 ```powershell
 $env:CHROMIUM_EXECUTABLE="$env:LOCALAPPDATA\ms-playwright\chromium_headless_shell-1228\chrome-headless-shell-win64\chrome-headless-shell.exe"
-$env:BROWSER_ARTIFACT_DIR='.artifacts\r2-compatibility-headless'
+$env:BROWSER_ARTIFACT_DIR='.artifacts\r2-compatibility-final'
 .venv\Scripts\python.exe tests/browser_smoke.py
 ```

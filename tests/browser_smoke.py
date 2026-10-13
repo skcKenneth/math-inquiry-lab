@@ -165,6 +165,9 @@ class BrowserSmoke(unittest.TestCase):
         note = '測試筆記，不是真實學生資料'
         self.page.locator('#prediction').fill(note)
         self.assertEqual(self.page.evaluate('localStorage.length'), 0)
+        session = self.page.evaluate('MathInquiryNotebookSnapshot()')
+        self.assertEqual(session['answers']['prediction'], note)
+        self.assertFalse(session['consent'])
         self.page.evaluate("localStorage.setItem('unrelated-app:test', 'retain')")
         self.page.locator('#remember').check()
         self.page.locator('#record').click()
@@ -184,9 +187,31 @@ class BrowserSmoke(unittest.TestCase):
         self.assertEqual(remaining['unrelated-app:test'], 'retain')
         self.assertNotIn(note, json.dumps(remaining, ensure_ascii=False))
         self.assertEqual(self.page.locator('#prediction').input_value(), note)
+        self.assertFalse(self.page.evaluate('MathInquiryNotebookSnapshot().consent'))
         self.page.reload()
         self.ready()
         self.assertEqual(self.page.locator('#prediction').input_value(), '')
+        # A synthetic pending re-opt-in checkpoint exercises the cleanup race:
+        # hold the real writer lock, revoke, create/change checkpoints, release.
+        self.page.locator('#prediction').fill(note)
+        self.page.locator('#remember').check()
+        self.page.wait_for_function("JSON.parse(localStorage.getItem('math-inquiry-lab:v1:quadratic') || 'null')?.consent === true")
+        prefix = 'math-learning-sync-v1:recovery:math-inquiry-quadratic:'
+        old_key = prefix + 'qa-old-checkpoint'
+        changed_key = prefix + 'qa-changed-checkpoint'
+        new_key = prefix + 'qa-new-explicit-optin'
+        self.page.evaluate("([a,b]) => {localStorage.setItem(a, 'old');localStorage.setItem(b, 'before');}", [old_key, changed_key])
+        self.page.evaluate("() => {window.__qaLock = navigator.locks.request('math-learning:writer:v1', () => new Promise(resolve => {window.__qaReleaseLock = resolve;}));}")
+        self.page.wait_for_function("typeof window.__qaReleaseLock === 'function'")
+        self.page.locator('#remember').uncheck()
+        self.page.evaluate("([a,b]) => {localStorage.setItem(a, 'updated pending explicit opt-in');localStorage.setItem(b, 'new pending explicit opt-in');window.__qaReleaseLock();}", [changed_key, new_key])
+        self.page.wait_for_function("document.querySelector('#storage-status').textContent.includes('已移除此活動的本機副本')")
+        remaining = self.page.evaluate('Object.fromEntries(Object.entries(localStorage))')
+        self.assertNotIn('math-inquiry-lab:v1:quadratic', remaining)
+        self.assertNotIn(old_key, remaining)
+        self.assertEqual(remaining[changed_key], 'updated pending explicit opt-in')
+        self.assertEqual(remaining[new_key], 'new pending explicit opt-in')
+        self.assertEqual(remaining['unrelated-app:test'], 'retain')
 
     def test_04_real_json_and_text_downloads(self):
         for lab in LABS:
